@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="bean" class="spring.di.Bean">
+		<property name="i" value="setter"></property>
+	</bean>
+
+	<bean id="bean2" class="spring.di.Bean">
+		<constructor-arg index="0" value="index" />
+	</bean>
+
+	<bean id="bean3" class="spring.di.Bean">
+		<constructor-arg name="i" value="name" />
+	</bean>
+
+	<bean id="bean4" class="spring.di.Bean">
+		<constructor-arg type="java.lang.String" value="type" />
+	</bean>
+</beans>

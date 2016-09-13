@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="afterAdvice1" class="spring.aop.proxy.AfterAdvice1" />
+    <bean id="afterAdvice2" class="spring.aop.proxy.AfterAdvice2" />
+    <bean id="beforeAdvice1" class="spring.aop.proxy.BeforeAdvice1" />
+    <bean id="beforeAdvice2" class="spring.aop.proxy.BeforeAdvice2" />
+    <bean id="loginService" class="spring.aop.proxy.LoginServiceImpl" />
+    <bean id="factoryUtil" class="spring.aop.proxy.BeanFactoryUtils" />
+
+    <bean id="loginServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--这里代理的是接口 -->
+        <property name="proxyInterfaces">
+            <value> spring.aop.proxy.LoginService</value>
+        </property>
+        <!--是ProxyFactoryBean要代理的目标类 -->
+        <property name="target">
+            <ref bean="loginService" />
+        </property>
+        <!--程序中的Advice -->
+        <property name="interceptorNames">
+            <list>
+                <value>afterAdvice1</value>
+                <value>afterAdvice2</value>
+                <value>beforeAdvice1</value>
+                <value>beforeAdvice2</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

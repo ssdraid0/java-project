@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.xml.IStudent">
+    <select id="getStudents" resultType="Student" resultMap="studentResultMap">
+        select * from student
+    </select>
+
+    <select id="getStudentById" resultType="Student" resultMap="studentResultMap">
+        select * from student where sid = #{0}
+    </select>
+    
+
+
+    <resultMap type="Student" id="studentResultMap">
+        <id property="id" column="sid" />
+        <result property="name" column="sname" />
+        <result property="age" column="sage" />
+        <result property="sex" column="ssex" />
+    </resultMap>
+    
+</mapper>

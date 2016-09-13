@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource">
+            <bean class="org.logicalcobwebs.proxool.ProxoolDataSource">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="driverUrl"
+                    value="jdbc:mysql://localhost:3306/test" />
+                <property name="user" value="root" />
+                <property name="password" value="123456" />
+                <property name="maximumConnectionCount" value="10" />
+                <property name="minimumConnectionCount" value="5" />
+                <property name="statistics" value="1m,15m,1h,1d" />
+                <property name="simultaneousBuildThrottle"
+                    value="30" />
+                <property name="trace" value="false" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="txManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="abstractDao" abstract="true">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="userDao" class="spring.transaction.dao.jdbc.UserJdbcDaoImpl"
+        parent="abstractDao" />
+    <bean id="addressDao" class="spring.transaction.dao.jdbc.AddressJdbcDaoImpl"
+        parent="abstractDao" />
+
+    <bean id="userService" class="spring.transaction.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao" />
+        <property name="txManager" ref="txManager" />
+        <property name="addressService" ref="addressService" />
+    </bean>
+
+    <bean id="addressService" class="spring.transaction.service.impl.AddressServiceImpl">
+        <property name="addressDao" ref="addressDao" />
+        <property name="txManager" ref="txManager" />
+    </bean>
+</beans>

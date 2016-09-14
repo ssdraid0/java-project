@@ -10,7 +10,7 @@ import java.util.Stack;
  * {@link BinaryTreeQuestion#depth(BinaryTreeNode)}。<br>
  * 3.判断是否是平衡二叉树。<br>
  * {@link BinaryTreeQuestion#isBanlanced(BinaryTreeNode)}。<br>
- * 4.找出和为某值的所有路径。<br>
+ * 4.找出二叉树中和为某值的所有路径。<br>
  *{@link BinaryTreeQuestion#findPath(BinaryTreeNode, int)}。<br>
  *
  */

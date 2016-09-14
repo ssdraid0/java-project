@@ -14,6 +14,7 @@ package algorithm;
  * 快速排序：{@link QuickSortQuestion#sort(int[])}。<br>
  * 堆排序：{@link HeapSortQuestion#sort(int[])}。<br>
  * 归并排序：{@link MergeSortQuestion#sort(int[])}。<br>
+ * <br>
  */
 public class SortQuestion
 {
@@ -71,7 +72,7 @@ class BubbleSortQuestion
 }
 
 /**
- * {@link https://en.wikipedia.org/wiki/Quicksort}。
+ * {@link https://en.wikipedia.org/wiki/Quicksort}。<br>
  */
 class QuickSortQuestion
 {
@@ -106,7 +107,8 @@ class QuickSortQuestion
 }
 
 /**
- * {@link https://en.wikipedia.org/wiki/Heapsort}。
+ * {@link http://blog.csdn.net/xiaoxiaoxuewen/article/details/7570621/}。<br>
+ * {@link https://en.wikipedia.org/wiki/Heapsort}。<br>
  */
 class HeapSortQuestion
 {

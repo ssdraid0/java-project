@@ -66,6 +66,12 @@ public class DataTypeQuestion
         long l = 3;
         float f = 4;
         double d = 5;
+        System.out.println(i);
+        System.out.println(s);
+        System.out.println(l);
+        System.out.println(b);
+        System.out.println(f);
+        System.out.println(d);
     }
 }
 

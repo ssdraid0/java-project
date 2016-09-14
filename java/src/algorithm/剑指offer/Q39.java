@@ -33,7 +33,6 @@ public class Q39
         node6.data = 7;
         System.out.println(treeDepth(root));
         System.out.println(isBalanced(root));
-
     }
 
     public static int treeDepth(BinaryTreeNode root)

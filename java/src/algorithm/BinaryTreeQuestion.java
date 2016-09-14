@@ -49,7 +49,7 @@ public class BinaryTreeQuestion
      */
     public static void mirror(BinaryTreeNode root)
     {
-        if (root == null || (root.left == null && root.right == null))
+        if (root == null)
             return;
         BinaryTreeNode temp = root.left;
         root.left = root.right;
@@ -63,7 +63,7 @@ public class BinaryTreeQuestion
      */
     public static int depth(BinaryTreeNode root)
     {
-        if (root == null || (root.left == null && root.right == null))
+        if (root == null)
             return 0;
         int left = 1;
         int right = 1;
@@ -87,7 +87,7 @@ public class BinaryTreeQuestion
             depth = 0;
             return true;
         }
-        int left = 0, right = 0;
+        int left = 1, right = 1;
         if (isBanlanced(root.left, left) && isBanlanced(root.right, right))
         {
             int diff = left - right;

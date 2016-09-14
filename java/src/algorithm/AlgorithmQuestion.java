@@ -4,9 +4,9 @@ public class AlgorithmQuestion
 {
     public static void main(String[] args)
     {
-        int a[][] = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
-        // MatrixQuestion.printMatrix1(a);
-        MatrixQuestion.printMatrix(a);
+        // int a[][] = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
+        // MatrixQuestion.printMatrix(a);
+        MathQuestion.testPow();
     }
 }
 
@@ -86,5 +86,35 @@ class MatrixQuestion
     {
 
     }
+}
 
+class MathQuestion
+{
+    public static void testPow()
+    {
+        System.out.println(pow(2, 10));
+    }
+
+    public static int pow(int x, int n)
+    {
+        if (n == 0)
+        {
+            return 1;
+        }
+        while ((n & 1) == 0)
+        { 
+            n >>= 1;
+            x *= x;
+        }
+        int result = x;
+        n >>= 1;
+        while (n != 0)
+        {
+            x *= x;
+            if ((n & 1) != 0)
+                result *= x;
+            n >>= 1;
+        }
+        return result;
+    }
 }

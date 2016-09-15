@@ -5,34 +5,6 @@ import java.util.Comparator;
 
 public class ArrayUtil
 {
-    /**
-     * 输入一个二维数组和一个整数，这个二维数组每一行从左到右递增，每一列从上到下递增。<br>
-     * 判断数组中是否含有该整数。
-     */
-    public static boolean find(int[][] array, int number)
-    {
-        if (array == null || array.length == 0)
-        {
-            return false;
-        }
-        int column = array[0].length - 1;
-        int row = 0;
-        while (row < array.length && column >= 0)
-        {
-            if (array[row][column] == number)
-            {
-                return true;
-            }
-            if (array[row][column] > number)
-            {
-                column--;
-            } else
-            {
-                row++;
-            }
-        }
-        return false;
-    }
 
     /**
      * 输入一个数组中，找出出现次数超过数组长度的一半的数字。

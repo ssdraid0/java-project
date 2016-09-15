@@ -8,37 +8,6 @@ import java.util.Stack;
 public class BinaryTree
 {
     /**
-     * 根据前序遍历和中序遍历的结果重建二叉树。
-     * 
-     * @param preOrder
-     *            前序遍历
-     * @param inOrder
-     *            中序遍历
-     * @return 根结点
-     * @throws Exception
-     */
-    public static BinaryTreeNode construct(int[] preOrder, int[] inOrder) throws Exception
-    {
-        if (preOrder == null || inOrder == null)
-            return null;
-        if (preOrder.length != inOrder.length)
-            throw new Exception("长度不一样，非法输入");
-        BinaryTreeNode root = new BinaryTreeNode();
-        for (int i = 0; i < inOrder.length; i++)
-        {
-            if (inOrder[i] == preOrder[0])
-            {
-                root.value = inOrder[i];
-                System.out.println(root.value);
-                root.left = construct(Arrays.copyOfRange(preOrder, 1, i + 1), Arrays.copyOfRange(inOrder, 0, i));
-                root.right = construct(Arrays.copyOfRange(preOrder, i + 1, preOrder.length),
-                        Arrays.copyOfRange(inOrder, i + 1, inOrder.length));
-            }
-        }
-        return root;
-    }
-
-    /**
      * 判断 以root2 为根结点的二叉树是不是以root1为根结点的二叉树的子树。
      * 
      * @param root1
@@ -133,47 +102,4 @@ public class BinaryTree
         }
     }
 
-    /**
-     * 从根结点开始查找，二叉树中和为某一值的所有路径
-     * 
-     * @param root
-     * @param sum
-     */
-    public static void findPath(BinaryTreeNode root, int sum)
-    {
-        if (root == null)
-            return;
-        Stack<Integer> stack = new Stack<Integer>();
-        int currentSum = 0;
-        findPath(root, sum, stack, currentSum);
-    }
-
-    private static void findPath(BinaryTreeNode root, int sum, Stack<Integer> stack, int currentSum)
-    {
-        currentSum += root.value;
-        stack.push(root.value);
-        if (root.left == null && root.right == null)
-        {
-            if (currentSum == sum)
-            {
-                System.out.println("找到一个路径");
-                for (int path : stack)
-                {
-                    System.out.print(path + " ");
-                }
-                System.out.println();
-            }
-        }
-        if (root.left != null)
-        {
-            findPath(root.left, sum, stack, currentSum);
-        }
-        if (root.right != null)
-        {
-            findPath(root.right, sum, stack, currentSum);
-        }
-        stack.pop();
-    }
-
-    
 }

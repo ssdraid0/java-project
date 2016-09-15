@@ -1,5 +1,6 @@
 package algorithm;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -11,8 +12,9 @@ import java.util.Stack;
  * 3.判断是否是平衡二叉树。<br>
  * {@link BinaryTreeQuestion#isBanlanced(BinaryTreeNode)}。<br>
  * 4.找出二叉树中和为某值的所有路径。<br>
- *{@link BinaryTreeQuestion#findPath(BinaryTreeNode, int)}。<br>
- *
+ * {@link BinaryTreeQuestion#findPath(BinaryTreeNode, int)}。<br>
+ * 5.根据前序遍历和中序遍历的结果重建二叉树。<br>
+ * {@link BinaryTreeQuestion#construct(int[], int[])}。<br>
  */
 public class BinaryTreeQuestion
 {
@@ -65,10 +67,8 @@ public class BinaryTreeQuestion
     {
         if (root == null)
             return 0;
-        int left = 1;
-        int right = 1;
-        left += depth(root.left);
-        right += depth(root.right);
+        int left = depth(root.left) + 1;
+        int right = depth(root.right) + 1;
         return left >= right ? left : right;
     }
 
@@ -137,5 +137,33 @@ public class BinaryTreeQuestion
             findPath(root.right, sum, stack, currentSum);
         }
         stack.pop();
+    }
+
+    /**
+     * 根据前序遍历和中序遍历的结果重建二叉树。
+     */
+    public static BinaryTreeNode construct(int[] preOrder, int[] inOrder)
+    {
+        if (preOrder == null || inOrder == null || preOrder.length != inOrder.length)
+            return null;
+        BinaryTreeNode root = new BinaryTreeNode();
+        for (int i = 0; i < inOrder.length; i++)
+        {
+            if (inOrder[i] == preOrder[0])
+            {
+                root.value = inOrder[i];
+                root.left = construct(Arrays.copyOfRange(preOrder, 1, i + 1), Arrays.copyOfRange(inOrder, 0, i));
+                root.right = construct(Arrays.copyOfRange(preOrder, i + 1, preOrder.length),
+                        Arrays.copyOfRange(inOrder, i + 1, inOrder.length));
+            }
+        }
+        return root;
+    }
+
+    public static void constructTest()
+    {
+        int[] preSort = { 1, 2, 4, 7, 3, 5, 6, 8 };
+        int[] inSort = { 4, 7, 2, 1, 5, 3, 8, 6 };
+        construct(preSort, inSort);
     }
 }

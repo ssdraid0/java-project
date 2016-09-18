@@ -21,27 +21,44 @@ public class StringQuestion
         String s = "abcba";
         System.out.println(findFirstRepeatOnce(s));
         permutation(s.toCharArray(), 0, s.length() - 1);
+        char[] c = { '1', ' ', ' ', '2' };
+        System.out.println(replaceBlank(c));
     }
 
     /**
      * 把字符串中的每个空格替换成"%20"。<br>
      */
-    public static String replaceBlank(String s)
+    public static char[] replaceBlank(char[] c)
     {
-        if (s == null)
+        if (c.length <= 0)
             return null;
-        StringBuilder sBuilder = new StringBuilder();
-        for (int i = 0; i < s.length(); i++)
+        int countBlank = 0;
+        int length = c.length;
+        for (int i = 0; i < length; ++i)
         {
-            if (s.charAt(i) == ' ')
+            if (c[i] == ' ')
+                countBlank++;
+        }
+        int newLength = length + countBlank * 2;// 计算新字符串长度
+        if (newLength == length)
+            return c;
+        char[] newC = new char[newLength];
+        int oldIndex = 0;// 指向原始字符串结尾
+        int newIndex = 0;// 指向替换后字符串结尾
+        while (oldIndex < c.length)
+        {
+            if (c[oldIndex] == ' ')
             {
-                sBuilder.append("%20");
+                newC[newIndex++] = '%';
+                newC[newIndex++] = '2';
+                newC[newIndex++] = '0';
             } else
             {
-                sBuilder.append(s.charAt(i));
+                newC[newIndex++] = c[oldIndex];
             }
+            oldIndex++;
         }
-        return new String(sBuilder);
+        return newC;
     }
 
     /**

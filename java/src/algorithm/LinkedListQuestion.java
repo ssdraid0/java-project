@@ -14,15 +14,7 @@ public class LinkedListQuestion
 {
     public static void main(String[] args)
     {
-        SinglyNode node1 = new SinglyNode();
-        SinglyNode node2 = new SinglyNode();
-        SinglyNode node3 = new SinglyNode();
-        node1.data = 1;
-        node2.data = 2;
-        node3.data = 3;
-        node1.next = node2;
-        node2.next = node3;
-        System.out.println(getLastNode(node1, 3).data);
+        getLastNodeTest();
     }
 
     private static class SinglyNode
@@ -41,24 +33,22 @@ public class LinkedListQuestion
             return;
         }
         if (head == del)
-        {// 删除头结点
-            head = null;
-        } else
         {
-            if (del.next == null)
-            {// 删除尾结点
-                SinglyNode pointNode = head;
-                while (pointNode.next.next != null)
-                {
-                    pointNode = pointNode.next;
-                }
-                pointNode.next = null;
-            } else
-            {
-                del.data = del.next.data;
-                del.next = del.next.next;
-            }
+            head = null;
+            return;
         }
+        if (del.next == null)
+        {
+            SinglyNode point = head;
+            while (point.next.next != null)
+            {
+                point = point.next;
+            }
+            point.next = null;
+            return;
+        }
+        del.data = del.next.data;
+        del.next = del.next.next;
     }
 
     /**
@@ -80,7 +70,7 @@ public class LinkedListQuestion
     }
 
     /**
-     * 从尾到头反过来打印出单链表每个结点的值。<br>
+     * 从尾到头反过来打印出单链表每个结点的值，用栈实现。<br>
      */
     public static void printReverse(SinglyNode head)
     {
@@ -97,28 +87,48 @@ public class LinkedListQuestion
     }
 
     /**
+     * 从尾到头反过来打印出单链表每个结点的值，用递归实现。<br>
+     */
+    public static void printReverse2(SinglyNode head)
+    {
+        if (head == null)
+            return;
+        printReverse2(head.next);
+        System.out.print(head.data);
+    }
+
+    /**
      * 找到单链表中倒数第 k 个结点。<br>
      */
     public static SinglyNode getLastNode(SinglyNode head, int lastIndex)
     {
         if (lastIndex <= 0)
             return null;
-        SinglyNode node1 = head;
         SinglyNode node2 = head;
         int node1Move = 1;
-        while (node1 != null)
+        for (SinglyNode node1 = head; node1 != null; node1 = node1.next)
         {
             if (node1Move <= lastIndex)
             {
                 node1Move++;
-                node1 = node1.next;
-            } else
-            {
-                node1 = node1.next;
-                node2 = node2.next;
+                continue;
             }
+            node2 = node2.next;
         }
         return node2;
+    }
+
+    public static void getLastNodeTest()
+    {
+        SinglyNode node1 = new SinglyNode();
+        SinglyNode node2 = new SinglyNode();
+        SinglyNode node3 = new SinglyNode();
+        node1.data = 1;
+        node2.data = 2;
+        node3.data = 3;
+        node1.next = node2;
+        node2.next = node3;
+        System.out.println(getLastNode(node1, 3).data);
     }
 
     /**
@@ -134,7 +144,7 @@ public class LinkedListQuestion
             return head1;
         }
         SinglyNode mergeHead = null;
-        if (head1.data < head2.data)
+        if (head1.data <= head2.data)
         {
             mergeHead = head1;
             mergeHead.next = merge(head1.next, head2);

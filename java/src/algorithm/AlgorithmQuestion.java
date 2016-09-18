@@ -11,15 +11,17 @@ public class AlgorithmQuestion
     public static void main(String[] args)
     {
         // MathQuestion.powTest();
+        // MathQuestion.fibonacciTest();
+        AlgorithmQuestion.findSmallTest();
     }
 
     /**
      * 输入一个数组，这个数组是另一个递增排序的数组的一个旋转数组，通过二分法输出最小元素。<br>
      * 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，数组{3,4,5,1,2}的最小值为 1。<br>
      */
-    public static void findSmall(int[] a)
+    public static int findSmall(int[] a)
     {
-        findSmall(a, 0, a.length - 1);
+        return findSmall(a, 0, a.length - 1);
     }
 
     private static int findSmall(int[] a, int first, int last)
@@ -33,9 +35,21 @@ public class AlgorithmQuestion
             int find2 = findSmall(a, index + 1, last);
             return find1 < find2 ? find1 : find2;
         } else if (a[index] >= a[first] && a[index] > a[last])
-            return findSmall(a, index, last);
+            return findSmall(a, index + 1, last);
         else
             return findSmall(a, first, index);
+    }
+
+    public static void findSmallTest()
+    {
+        int[] a = { 3, 4, 5, 1, 2 };
+        int[] a2 = { 2, 2, 1, 1 };
+        int[] a3 = { 3, 3, 1, 2 };
+        int[] a4 = { 2, 3, 1, 1 };
+        System.out.println(findSmall(a));
+        System.out.println(findSmall(a2));
+        System.out.println(findSmall(a3));
+        System.out.println(findSmall(a4));
     }
 
     /**
@@ -187,16 +201,15 @@ class MatrixQuestion
 }
 
 /**
- * 1.输入n，求斐波那契数列的第n项。<br>
+ * 1.输入一个整数n，求斐波那契数列的第n项。<br>
  * {@link MathQuestion#fibonacci(int)}。<br>
- * 2.输入x和n，求x的n次方。<br>
+ * 2.输入两个整数x和n，求x的n次方。<br>
  * {@link MathQuestion#pow(int, int)}。<br>
  */
 class MathQuestion
 {
     public static long fibonacci(int n)
     {
-        long result = 0;
         long preOne = 0;
         long preTwo = 1;
         if (n == 0)
@@ -207,6 +220,7 @@ class MathQuestion
         {
             return preTwo;
         }
+        long result = 1;
         for (int i = 2; i <= n; i++)
         {
             result = preOne + preTwo;
@@ -216,11 +230,18 @@ class MathQuestion
         return result;
     }
 
-    public static void powTest()
+    public static void fibonacciTest()
     {
-        System.out.println(pow(2, 10));
+        for (int i = 0; i < 10; i++)
+        {
+            System.out.print(fibonacci(i) + ",");
+        }
+
     }
 
+    /**
+     * 输入两个整数x和n，求x的n次方。<br>
+     */
     public static int pow(int x, int n)
     {
         if (n == 0)
@@ -242,5 +263,10 @@ class MathQuestion
             n >>= 1;
         }
         return result;
+    }
+
+    public static void powTest()
+    {
+        System.out.println(pow(2, 10));
     }
 }

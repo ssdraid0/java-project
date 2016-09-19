@@ -236,7 +236,51 @@ class MathQuestion
         {
             System.out.print(fibonacci(i) + ",");
         }
+    }
+    
+    /**
+     * 输入1个double类型x和一个int类型n，求x的n次方。<br>
+     */
+    public double power(double x, int n) throws Exception
+    {
+        double result = 0;
+        if (equal(x, 0.0) && n < 0)
+        {
+            throw new Exception("0的负数次幂没有意义");
+        }
+        if (n < 0)
+        {
+            result = 1.0 / powerWithExpoment(x, -n);
+        } else
+        {
+            result = powerWithExpoment(x, n);
+        }
+        return result;
+    }
 
+    private double powerWithExpoment(double base, int exponent)
+    {
+        if (exponent == 0)
+        {
+            return 1;
+        }
+        double result = 1.0;
+        for (int i = 1; i <= exponent; i++)
+        {
+            result = result * base;
+        }
+        return result;
+    }
+
+    private boolean equal(double num1, double num2)
+    {
+        if ((num1 - num2 > -0.0000001) && num1 - num2 < 0.0000001)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     /**
@@ -267,6 +311,7 @@ class MathQuestion
 
     public static void powTest()
     {
+        Math.pow(2, 10);
         System.out.println(pow(2, 10));
     }
 }

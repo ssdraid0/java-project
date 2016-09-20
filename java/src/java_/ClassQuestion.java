@@ -8,12 +8,73 @@ import java.math.BigInteger;
  * 属性（fields），局部变量（local variables），参数（parameters）。<br>
  * {@link http://docs.oracle.com/javase/tutorial/java/javaOO/variables.html}<br>
  * <br>
+ * 2.静态成员类和非静态成员类的区别？<br>
+ * 非静态成员类能访问外围实例的非静态成员。<br>
  */
 public class ClassQuestion
 {
     public static void main(String[] args)
     {
         // StaticQuestion.Block.test();
+    }
+}
+
+/**
+ * 1.重载（Overload），重写（Override），隐藏（hide）的定义。<br>
+ * 重载：一个类的两个方法，方法名相同，但参数不同。<br>
+ * 重写：两个实例方法分别在子类和父类，方法名，参数和返回类型相同。<br>
+ * 隐藏：两个静态方法分别在子类和父类，方法名，参数和返回类型相同。<br>
+ * [ToDo]2.一个类B继承类A，B有一个{@code void println(Object o)}方法，A有一个{@code void println(String s)}方法，这种情况是否为重载？<br>
+ * .是。<br>
+ */
+class OLORQuestion
+{
+
+}
+
+/**
+ * 1.接口和抽象类的不同点？<br>
+ * a.对于属性，接口的属性只能是public静态常量。<br>
+ * b.对于方法，接口只能有抽象方法，静态方法和默认方法。<br>
+ * c.接口的方法只能是public，抽象类的抽象方法可以是public和protected。<br>
+ * d.对于代码块，接口不能定义代码块或静态代码块。<br>
+ * e.一个类可以实现多个接口，但只能继承一个抽象类。<br>
+ * 2.接口和抽象类的相同点？<br>
+ * a.都不能用final修饰。<br>
+ * b.都不能被实例化。<br>
+ * 3.接口可以有静态方法吗？<br>
+ * 可以。<br>
+ * 4.接口可以继承多个接口吗？可以实现接口吗？<br>
+ * 可以。不能。不能。<br>
+ * 5.抽象类可以有构造方法吗？可以没有抽象方法吗？<br>
+ * 实现接口的抽象类可以不实现抽象方法吗？ <br>
+ * 可以。可以。可以。<br>
+ * 6.default方法只能在接口中定义吗？<br>
+ * 对。<br>
+ */
+class InterfaceQuestion
+{
+    public interface IF1
+    {
+        public static final int i = 1;
+
+        public abstract void method1();
+
+        public default void i()
+        {
+        }
+
+        public static void s()
+        {
+        }
+    }
+
+    public interface IF2
+    {
+    }
+
+    public interface IF3 extends IF1, IF2
+    {
     }
 }
 
@@ -63,7 +124,7 @@ class StaticQuestion
 
 /**
  * 1.Java中final有哪些用法？ <br>
- * a.修饰成员变量，表示不能改变。<br>
+ * a.修饰属性，表示不能改变。<br>
  * b.修饰方法，表示不能重写。<br>
  * b.修饰类，表示不能继承。<br>
  * <br>
@@ -78,8 +139,8 @@ class StaticQuestion
  * 4.为什么{@link BigInteger}和{@link BigDecimal}没有用final修饰？<br>
  * 历史原因。<br>
  * <br>
- * 5.定义一个类{@link java_.static_p.Constants}专门存放常量，在其中定义一个int常量TRUE，值为1，再定义一个类{@link java_.static_p.ConstantsTest}
- * 演示如何使用。写出代码。 <br>
+ * 5.定义一个类{@link java_.static_p.Constants}专门存放常量，在其中定义一个int常量TRUE，值为1，再定义一个类
+ * {@link java_.static_p.ConstantsTest} 演示如何使用。写出代码。 <br>
  */
 class FinalQuestion
 {
@@ -92,21 +153,22 @@ class FinalQuestion
             System.out.println(i);
         }
     }
-    
+
     static class Method
     {
         static class A
         {
             static final void method1()
             {
-                
+
             }
         }
+
         static class B extends A
         {
 
         }
-        
+
     }
 }
 
@@ -115,7 +177,7 @@ class FinalQuestion
  * 对。<br>
  * 2. Java中静态代码块，非静态代码块，构造方法执行顺序？<br>
  * 父类的静态代码块->子类的静态代码块-> 父类的非静态代码块->父类构造方法-> 子类非静态代码块->子类构造方法<br>
- * 3.写出代码{@link OrderQuestion#test1()}的结果。<br>
+ * 3.写出代码{@link OrderQuestion#nullTest()}的结果。<br>
  * A Static Code<br>
  * C Static Code<br>
  * A No Static Code<br>

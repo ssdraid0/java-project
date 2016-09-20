@@ -217,12 +217,12 @@ class BeansCirculeQuestion
 /**
  * 1.IoC容器如何根据name获取Bean？<br>
  * 代码在：{@link AbstractBeanFactory#doGetBean()}。 <br>
- * a.如果name是别名（alias），去别名{@link Map}获取对应的name。代码在 {@link AbstractBeanFactory#transformedBeanName(String)} 。
- * <br>
+ * a.如果name是别名（alias），去别名{@link Map}获取对应的name。<br>
+ * 代码在 {@link AbstractBeanFactory#transformedBeanName(String)} 。<br>
  * b.根据name去单例{@link Map}获取对象，如果找到了，那就说明这个Bean就是单例，直接返回，否则转c。<br>
  * c.没找到，根据name去bean定义{@link Map}获取bean定义，然后判断bean的作用域，如果是单例，转d，否则转f。<br>
- * d.通过反射new一个bean，把bean缓存。 代码在
- * {@link SimpleInstantiationStrategy#instantiate(RootBeanDefinition, String, BeanFactory)} 。<br>
+ * d.通过反射new一个bean，把bean缓存。<br>
+ * 代码在 {@link SimpleInstantiationStrategy#instantiate(RootBeanDefinition, String, BeanFactory)} 。<br>
  * f.通过反射new一个bean。<br>
  * <br>
  */

@@ -1,5 +1,8 @@
 package java_;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 1.Java的基本数据类型有哪些？ <br>
  * int，short，long，float，double，byte，char，boolean。<br>
@@ -17,7 +20,7 @@ package java_;
  * byte：8位，-2^7到2^7-1，包括边界。<br>
  * short：16位，-2^15到2^15-1。<br>
  * int：32位，-2^31到2^31-1。<br>
- * 0 long：64位，-2^64到2^64-1。<br>
+ * long：64位，-2^64到2^64-1。<br>
  * char：无符号16位，0-2^16-1。<br>
  * <br>
  * 5.Java的基本数据类型转换规则是怎么样的？<br>
@@ -43,7 +46,8 @@ public class DataTypeQuestion
     {
         // DataTypeQuestion question = new DataTypeQuestion();
         // question.test1();
-        LongQuestion.test1();
+        //LongQuestion.test1();
+        ShortQuestion.test1();
     }
 
     public void test1()
@@ -76,6 +80,19 @@ public class DataTypeQuestion
 }
 
 /**
+ * 
+ *
+ */
+class PassValueQuestion
+{
+    
+    public static void passByValue()
+    {
+        
+    }
+}
+
+/**
  * 1.{@link Character}判断是否是数字，是否是字母，是否是大写字母，是否是小写字母的方法是什么？<br>
  * {@link Character#isDigit(char)}，{@link Character#isLetter(char)}， {@link Character#isUpperCase(char)}，
  * {@link Character#isLowerCase(char)}。<br>
@@ -86,7 +103,22 @@ class CharacterQuestion
 }
 
 /**
- * 
+ */
+class ShortQuestion
+{
+    public static void test1()
+    {
+        Set<Short> set =  new HashSet<>();
+        for(Short i=0;i<1024;i++)
+        {
+            set.add(i);
+            set.remove(i-1);
+        }
+        System.out.print(set.size());
+    }
+}
+
+/**
  */
 class LongQuestion
 {

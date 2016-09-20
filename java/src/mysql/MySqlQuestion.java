@@ -1,9 +1,5 @@
 package mysql;
 
-import javax.swing.JList.DropLocation;
-
-import org.apache.tools.ant.taskdefs.condition.Not;
-
 /**
  * 
  *
@@ -99,6 +95,9 @@ class SqlUpdateQuestion
  * select distinct name from a;会去掉重复的行。<br>
  * select name from a;和select all name from a;相同。<br>
  * <br>
+ * 2.select，where，group by，having执行顺序？<br>
+ * where->group by->having->select。<br>
+ * <br>
  */
 class SqlSelectQuestion
 {
@@ -133,6 +132,12 @@ class SqlUnionQuestion
 class SqlLeftJoinQuestion
 {
 
+}
+
+
+class SqlLimitQuestion
+{
+    
 }
 
 /**

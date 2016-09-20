@@ -38,18 +38,31 @@ public class CollectionsQuestion
 
 }
 
+
+
 /**
  * 1.{@link ArrayList}的默认容量是多少？最大容量是多少？每次扩容多少？<br>
  * 默认容量是10。最大容量是是2的31次方减1。每次扩容为原来的1.5倍。<br>
+ * <br>
  * 2.{@link ArrayList}继承了什么类?实现了哪些接口?<br>
- * 继承了{@link AbstractList}，实现了{@link List}, {@link RandomAccess}, {@link Cloneable}, {@link Serializable}接口。
+ * 继承了{@link AbstractList}，实现了{@link List}, {@link RandomAccess}, {@link Cloneable}, {@link Serializable}接口。<br>
  * <br>
  * 3.分析代码{@link ArrayListQuestion#test1()}，其中{@link ArrayListQuestion#list1}和{@link ArrayListQuestion#list2}
  * 扩容了几次?是在添加第几个元素时扩容?<br>
  * {@link ArrayListQuestion#list1}：扩容0次。<br>
  * {@link ArrayListQuestion#list2}：扩容3次，添加第1个元素时扩容为10，第11个元素时扩容为10的1.5倍15，第16个元素扩容为15的1.5倍22。<br>
+ * <br>
  * 4.为什么{@link ArrayList}中实际存储元素的elementData数组要设计成transient？<br>
  * 因为{@link ArrayList}实际存储的元素数量比elementData数组的长度小。elementData数组不需要全部序列化,在writeObject方法中手动序列化实际存储的元素。<br>
+ * <br>
+ * 5.{@link ArrayList}和{@link LinkedList}的区别？<br>
+ * a.{@link ArrayList}是用数组实现的，{@link LinkedList}是用双向链表实现的。<br>
+ * b.按下标获取({@link List#get(int)})元素，修改({@link List#set(int, Object)})元素<br>
+ * {@link ArrayList}比{@link LinkedList}快。 <br>
+ * c.插入({@link List#add(int, Object)} )，删除({@link List#remove(int)})元素<br>
+ * 在通常情况下{@link LinkedList}比{@link ArrayList}快，因为{@link ArrayList}可能需要把后面的元素全部向前或向后移动。<br>
+ * <br>
+ * 6.
  */
 class ArrayListQuestion
 {

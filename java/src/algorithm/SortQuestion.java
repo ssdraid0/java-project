@@ -1,20 +1,24 @@
 package algorithm;
 
 /**
- * 1.有哪些常见排序算法？最好，平均，最坏时间复杂度是多少？空间复杂度是多少？<br>
- * 选择排序：n^2，n^2，n^2。1。<br>
- * 冒泡排序：n，n^2，n^2。1。<br>
- * 快速排序：nlogn，nlogn，n^2。<br>
- * 归并排序：nlogn，nlogn，nlogn。<br>
- * 堆排序：nlogn，nlogn，nlogn。<br>
- * Timsort：n，nlogn，nlogn。<br>
+ * 1.有哪些常见排序算法？最好，平均，最坏时间复杂度是多少？空间复杂度是多少？是否稳定？<br>
+ * 选择排序：n^2，n^2，n^2。1。不稳定。<br>
+ * 冒泡排序：n，n^2，n^2。1。稳定。<br>
+ * 快速排序：nlogn，nlogn，n^2。不稳定。<br>
+ * 堆排序：nlogn，nlogn，nlogn。不稳定。<br>
+ * 归并排序：nlogn，nlogn，nlogn。稳定。<br>
+ * Timsort：n，nlogn，nlogn。稳定。<br>
  * <br>
  * 2.实现冒泡排序，快速排序，堆排序，归并排序。<br>
- * 冒泡排序：{@link BubbleSortQuestion#sort(int[])}。<br>
- * 快速排序：{@link QuickSortQuestion#sort(int[])}。<br>
+ * 冒泡排序：{@link #bubbleSort(int[])}。<br>
+ * 快速排序：{@link #quickSort(int[])}。<br>
  * 堆排序：{@link HeapSortQuestion#sort(int[])}。<br>
- * 归并排序：{@link MergeSortQuestion#sort(int[])}。<br>
+ * 归并排序：{@link #mergeSort(int[])}。<br>
  * <br>
+ * 3.输入一个已经按从小到大排序的int数组，其中有些数字重复出现，删除这些数字，返回删除后的数组长度。<br>
+ * {@link #removeDuplicates(int[])}。<br>
+ * 4.输入一个已经按从小到大排序的int数组和一个int类型sum，输出数组中和为sum的两个元素的下标。
+* {@link #sumOfTwo(int[], int)}。<br>
  */
 public class SortQuestion
 {
@@ -25,17 +29,13 @@ public class SortQuestion
         // BubbleSortQuestion.sort(a);
         // QuickSortQuestion.sort(a);
         // HeapSortQuestion.sort(a);
-        MergeSortQuestion.sort(a);
         for (int i = 0; i < a.length; i++)
         {
             System.out.print(a[i]);
         }
     }
-}
 
-class SelectSortQuestion
-{
-    public static void sort(int[] a)
+    public static void selectSort(int[] a)
     {
         for (int i = 0; i < a.length; i++)
         {
@@ -50,11 +50,8 @@ class SelectSortQuestion
             }
         }
     }
-}
 
-class BubbleSortQuestion
-{
-    public static void sort(int[] a)
+    public static void bubbleSort(int[] a)
     {
         for (int i = a.length - 1; i > 1; i--)
         {
@@ -69,19 +66,13 @@ class BubbleSortQuestion
             }
         }
     }
-}
 
-/**
- * {@link https://en.wikipedia.org/wiki/Quicksort}。<br>
- */
-class QuickSortQuestion
-{
-    public static void sort(int[] a)
+    public static void quickSort(int[] a)
     {
-        sort(a, 0, a.length - 1);
+        quickSort(a, 0, a.length - 1);
     }
 
-    private static void sort(int[] a, int l, int r)
+    private static void quickSort(int[] a, int l, int r)
     {
         if (l < r)
         {
@@ -100,8 +91,118 @@ class QuickSortQuestion
                     a[j--] = a[i];
             }
             a[i] = x;
-            sort(a, l, i - 1); // 递归调用
-            sort(a, i + 1, r);
+            quickSort(a, l, i - 1); // 递归调用
+            quickSort(a, i + 1, r);
+        }
+    }
+
+    /**
+     * https://en.wikipedia.org/wiki/Merge_sort<br>
+     */
+    public static void mergeSort(int[] a)
+    {
+        mergeSort(a, 0, a.length - 1);
+    }
+
+    private static int[] mergeSort(int[] a, int start, int end)
+    {
+        int mid = (start + end) / 2;
+        if (start < end)
+        {
+            // 左边
+            mergeSort(a, start, mid);
+            // 右边
+            mergeSort(a, mid + 1, end);
+            // 左右归并
+            merge(a, start, mid, end);
+        }
+        return a;
+    }
+
+    private static void merge(int[] a, int start, int mid, int end)
+    {
+        int[] temp = new int[end - start + 1];
+        int i = start;
+        int j = mid + 1;
+        int k = 0;
+
+        // 把较小的数先移到新数组中
+        while (i <= mid && j <= end)
+        {
+            if (a[i] <= a[j])
+            {
+                temp[k++] = a[i++];
+            } else
+            {
+                temp[k++] = a[j++];
+            }
+        }
+
+        // 把左边剩余的数移入数组
+        while (i <= mid)
+        {
+            temp[k++] = a[i++];
+        }
+
+        // 把右边边剩余的数移入数组
+        while (j <= end)
+        {
+            temp[k++] = a[j++];
+        }
+
+        // 把新数组中的数覆盖nums数组
+        for (int k2 = 0; k2 < temp.length; k2++)
+        {
+            a[k2 + start] = temp[k2];
+        }
+    }
+
+    /**
+     * 输入一个int数组，已经排好序，其中有些数字重复出现，删除这些数字，返回删除后的数组长度。<br>
+     * https://leetcode.com/problems/remove-duplicates-from-sorted-array/<br>
+     */
+    public static int removeDuplicates(int a[])
+    {
+        if (a.length <= 1)
+            return a.length;
+        int length = 0;
+        for (int i = 0; i < a.length; i++)
+        {
+            if (i == 0 || a[length - 1] != a[i])
+                a[length++] = a[i];
+        }
+        return length;
+    }
+
+    /**
+     * 输入一个已经按从小到大排序的int数组，和一个int类型sum，输出数组中和为sum的两个元素的下标。
+     * http://zhedahht.blog.163.com/blog/static/2541117420072143251809/<br>
+     * https://leetcode.com/problems/two-sum/<br>
+     */
+    public static void sumOfTwo(int[] a, int sum)
+    {
+        if (a == null || a.length == 0)
+            return;
+        boolean found = false;
+        int left = 0, right = a.length - 1;
+        int index1 = 0, index2 = 0;
+        while (left < right)
+        {
+            int curSum = a[right] + a[left];
+            if (curSum == sum)
+            {
+                index1 = left;
+                index2 = right;
+                found = true;
+                break;
+            } else if (curSum > sum)
+                right--;
+            else
+                left++;
+        }
+        if (found)
+        {
+            System.out.print(index1 + "," + index2);
         }
     }
 }
@@ -161,69 +262,5 @@ class HeapSortQuestion
         int temp = array[index1];
         array[index1] = array[index2];
         array[index2] = temp;
-    }
-}
-
-/**
- * {@link https://en.wikipedia.org/wiki/Merge_sort}。
- */
-class MergeSortQuestion
-{
-    public static void sort(int[] a)
-    {
-        sort(a, 0, a.length - 1);
-    }
-
-    private static int[] sort(int[] a, int low, int high)
-    {
-        int mid = (low + high) / 2;
-        if (low < high)
-        {
-            // 左边
-            sort(a, low, mid);
-            // 右边
-            sort(a, mid + 1, high);
-            // 左右归并
-            merge(a, low, mid, high);
-        }
-        return a;
-    }
-
-    private static void merge(int[] nums, int low, int mid, int high)
-    {
-        int[] temp = new int[high - low + 1];
-        int i = low;// 左指针
-        int j = mid + 1;// 右指针
-        int k = 0;
-
-        // 把较小的数先移到新数组中
-        while (i <= mid && j <= high)
-        {
-            if (nums[i] <= nums[j])
-            {
-                temp[k++] = nums[i++];
-            } else
-            {
-                temp[k++] = nums[j++];
-            }
-        }
-
-        // 把左边剩余的数移入数组
-        while (i <= mid)
-        {
-            temp[k++] = nums[i++];
-        }
-
-        // 把右边边剩余的数移入数组
-        while (j <= high)
-        {
-            temp[k++] = nums[j++];
-        }
-
-        // 把新数组中的数覆盖nums数组
-        for (int k2 = 0; k2 < temp.length; k2++)
-        {
-            nums[k2 + low] = temp[k2];
-        }
     }
 }

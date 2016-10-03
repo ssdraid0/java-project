@@ -4,12 +4,10 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-    <bean id="bean1" class="spring.bean.alias.Bean" scope="singleton"></bean>
-    <alias name="bean1" alias="bean2" />
-    <alias name="bean1" alias="bean3" />
-    <alias name="bean2" alias="bean4" />
-
-    <bean id="bean5" name="bean6" class="spring.bean.alias.Bean"
-        scope="singleton"></bean>
-
+    <bean id="bean1" class="spring.bean.circle.Bean1" scope="singleton">
+        <property name="Bean2" ref="bean2"></property>
+    </bean>
+    <bean id="bean2" class="spring.bean.circle.Bean2" scope="singleton">
+        <property name="Bean1" ref="bean1"></property>
+    </bean>
 </beans>

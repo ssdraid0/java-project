@@ -5,16 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 1.输入一个矩阵和一个整数，这个矩阵每一行从左到右递增，每一列从上到下递增，<br>
- * 如果矩阵中含有该整数，返回true。<br>
+ * 1.输入一个int类型矩阵和一个int类型k，矩阵每一行从左到右递增，每一列从上到下递增，<br>
+ * 如果矩阵中含有k，返回true。<br>
  * {@link #find(int[][], int)}。<br>
- * 2.输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。<br>
+ * 2.输入一个int类型矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字。<br>
  * {@link #spiralOrder(int[][])}。<br>
- * 3.输入一个矩阵，返回从左上角到右下角的路径数量。<br>
+ * 3.输入一个int类型矩阵，返回从左上角到右下角的路径数量。<br>
  * {@link #uniquePaths(int[][])}。<br>
- * 4.输入一个矩阵，矩阵的每个位置的值为0或1，为1的位置不能通行，返回从左上角到右下角的不同路径数量。<br>
+ * 4.输入一个int类型矩阵，矩阵的每个位置的值为0或1，为1的位置不能通行，返回从左上角到右下角的不同路径数量。<br>
  * {@link #uniquePathsObstacles(int[][])}。<br>
- * 5. 输入一个矩阵，从左上角移动到右下角，只能向右或向下移动。<br>
+ * 5. 输入一个int类型矩阵，从左上角移动到右下角，只能向右或向下移动。<br>
  * 找出一个路径，这个路径经过的值的和最小，返回这个值。<br>
  * {@link #minPathSum(int[][])}。<br>
  */
@@ -41,19 +41,14 @@ public class MatrixQuestion
             return false;
         int width = a[0].length - 1;
         int depth = 0;
-        while (depth < a.length && width >= 0)
+        while (depth <= a.length - 1 && width >= 0)
         {
             if (a[depth][width] == k)
-            {
                 return true;
-            }
-            if (a[depth][width] > k)
-            {
+            else if (a[depth][width] > k)
                 width--;
-            } else
-            {
+            else
                 depth++;
-            }
         }
         return false;
     }
@@ -81,6 +76,7 @@ public class MatrixQuestion
 
     /**
      * 输入一个矩阵，矩阵的每个位置的值为0或1，为1的位置不能通行，返回从左上角到右下角的不同路径数量。<br>
+     * https://leetcode.com/problems/unique-paths-ii/<br>
      */
     public static int uniquePathsObstacles(int[][] a)
     {
@@ -142,21 +138,19 @@ public class MatrixQuestion
     {
         if (a == null || a.length == 0 || a[0].length == 0)
             return;
-        int width = a[0].length;
-        int depth = a.length;
         int start = 0;
-        while (width > start * 2 && depth > start * 2)
+        while (start * 2 < a.length && start * 2 < a[0].length)
         {
-            printOneCircle(a, width, depth, start);
+            printOneCircle(a, start);
             start++;
         }
     }
 
     // 在圆圈中打印矩阵，打印一圈分4种情况:一步，二步，三步，四步
-    private static void printOneCircle(int[][] a, int width, int depth, int start)
+    private static void printOneCircle(int[][] a, int start)
     {
-        int endX = width - 1 - start;
-        int endY = depth - 1 - start;
+        int endX = a[0].length - 1 - start;
+        int endY = a.length - 1 - start;
         // 从左到右打印一行
         for (int i = start; i <= endX; i++)
         {
@@ -203,7 +197,7 @@ public class MatrixQuestion
     {
 
     }
-    
+
     /**
      * n皇后问题：在一个有nxn格的棋盘上，任意两个皇后都不能处于同一行、同一列或同一斜线上。<br>
      * 输入一个int类型n，返回n皇后问题的方案数。<br>

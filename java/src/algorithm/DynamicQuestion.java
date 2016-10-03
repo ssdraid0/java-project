@@ -1,23 +1,16 @@
 package algorithm;
 
 /**
- * 1. 输入一个int类型数组，寻找两个数，一个在左边，一个在右边，使右边减左边的值最大。 <br>
- * 返回这个最大值。 <br>
- * {@link #minMax(int[])}。<br>
- * 2.输入一个int类型数组，寻找两个数，一个在左边，一个在右边，使左边减的右边值最大。 <br>
- * 返回这个最大值。 <br>
- * {@link #maxMin(int[])}。<br>
- * 3.<br>
+ * 
+ * 
  */
 public class DynamicQuestion
 {
     public static void main(String[] args)
     {
         int[] a = { 1, 5, 3, 7, 2, 6 };
-        System.out.println("1 transaction maxProfit ：" + minMax(a)); // 6
         System.out.println("3 transaction maxProfit：" + maxProfit(a, 2)); // 10
         int[] a2 = { 1, 4, 6, 8, 5, 7 };
-        System.out.println("1 transaction maxProfit ：" + minMax(a2)); // 7
         System.out.println("3 transaction maxProfit：" + maxProfit(a2, 2)); // 9
         int[] a3 = { 1, 2, 5 };
         coinChange(a3, 10);
@@ -104,50 +97,6 @@ public class DynamicQuestion
                 money -= coinValue[money];
             }
         }
-    }
-
-    /**
-     * 输入一个int类型数组，寻找两个数，一个在左边，一个在右边，使右边减左边的值最大。<br>
-     * 返回这个最大值。<br>
-     * 输入一个数组，代表股票每天的价格。 <br>
-     * 买股票前必须卖出股票，手里最多能持有1个股票，股票在某天买了，不能在那天卖。<br>
-     * 返回最大收益。<br>
-     * 例如：输入{ 1, 5, 3, 7, 2, 6 }，返回最大收益7-1=6。<br>
-     * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/<br>
-     * http://zhedahht.blog.163.com/blog/static/2541117420116135376632/<br>
-     * http://blog.csdn.net/diu_brother/article/details/51226794<br>
-     */
-    public static int minMax(int[] a)
-    {
-        if (a == null || a.length <= 1)
-            return 0;
-        int[] diff = new int[a.length];
-        int minLeft = a[0];
-        for (int i = 1; i < diff.length; i++)
-        {
-            diff[i] = Math.max(diff[i - 1], a[i] - minLeft);
-            minLeft = Math.min(minLeft, a[i]);
-        }
-        return diff[diff.length - 1];
-    }
-
-    /**
-     * 输入一个int类型数组，寻找两个数，一个在左边，一个在右边，使左边减右边的值最大。<br>
-     * 返回这个最大值。<br>
-     * http://zhedahht.blog.163.com/blog/static/2541117420116135376632/<br>
-     */
-    public static int maxMin(int[] a)
-    {
-        if (a == null || a.length <= 1)
-            return 0;
-        int[] diff = new int[a.length];
-        int maxLeft = a[0];
-        for (int i = 1; i < diff.length; i++)
-        {
-            diff[i] = Math.min(diff[i - 1], a[i] - maxLeft);
-            maxLeft = Math.max(maxLeft, a[i]);
-        }
-        return diff[diff.length - 1];
     }
 
     /**

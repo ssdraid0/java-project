@@ -2,9 +2,6 @@ package spring;
 
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.aspectj.AspectJAfterAdvice;
@@ -21,9 +18,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import org.springframework.beans.factory.support.AbstractBeanFactory;
-import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
-import org.springframework.beans.factory.support.RootBeanDefinition;
-import org.springframework.beans.factory.support.SimpleInstantiationStrategy;
 import org.springframework.beans.factory.xml.BeanDefinitionParserDelegate;
 import org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader;
 import org.springframework.beans.factory.xml.DefaultDocumentLoader;
@@ -31,7 +25,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.core.SimpleAliasRegistry;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.UrlResource;
@@ -64,7 +57,7 @@ public class SpringQuestion
  * <br>
  * a.判断是否以"classpath*:"开头，不是转b。暂时不用考虑是的情况。<br>
  * b.判断是否包含":"，是就去掉，然后判断是否包含"*"或"?"，不是转c。暂时不用考虑是的情况。 <br>
- * c.判断是否以"/"开头，不是转d，是转f <br>
+ * c.判断是否以"/"开头，不是转d，是转f。<br>
  * d.判断是否以"classpath:"开头，不是转e，是就去掉"classpath:"然后转h。<br>
  * e.判断是否是URL，不是转f，是转i。<br>
  * f.如果是{@link FileSystemXmlApplicationContext}，转g，如果是 {@link ClassPathXmlApplicationContext}，转h。 <br>
@@ -115,64 +108,6 @@ class ContextHowQuestion
 }
 
 /**
- * 1.解析xml时bean后的信息存储在哪里？<br>
- * {@link ConcurrentHashMap}，Key是{@link String}，Value是{@link RootBeanDefinition}。<br>
- * 代码在{@link AbstractBeanFactory#mergedBeanDefinitions}。<br>
- * <br>
- */
-class BeansDefinitionQuestion
-{
-
-}
-
-/**
- * 1.存储别名（alias）的数据结构是什么？<br>
- * {@link ConcurrentHashMap}，Key是{@link String}，Value是{@link String}。<br>
- * 位于{@link SimpleAliasRegistry#aliasMap}。<br>
- * <br>
- * 2.别名（alias）是如何转换为原名的？<br>
- * 代码在 {@link AbstractBeanFactory#transformedBeanName(String)} 。<br>
- * 有个{@link ConcurrentHashMap}专门存储别名和原名的映射，下面举个例子说明是如何转换的。<br>
- * 假设配置文件中配置了下面这样的别名。 <br>
- * <code>
- *<alias name="bean1" alias="bean2" />
- *<alias name="bean1" alias="bean3" />
-* <alias name="bean2" alias="bean4" />
- *</code> <br>
- * 那么{@link ConcurrentHashMap}里面存储的内容就是bean2-bean1，bean3-bean1，bean4-bean2。 现在要获取bean4的原名，那么就去
- * {@link ConcurrentHashMap}找键为bean4的值，发现是bean2。
- * 然后去找键为bean2的值，发现是bean1，然后去找键为bean1的值，发现没有，是null，说明找到了原名，就是bean1。
- */
-class BeansAlaisQuestion
-{
-
-}
-
-/**
- * 1.Bean的的作用域有哪几种，默认的是哪种？<br>
- * 单例（singleton），原型（prototype），request，session，global-session，默认的是单例。<br>
- * <br>
- * 2.一个bean的定义如下，如何设置作用域为singleton？<br>
- * <bean id="beanSingleton" class="spring.Bean"><br>
- * <bean id="beanSingleton" class="spring.Bean" scope="singleton"><br>
- * <br>
- * 3.作用域为singleton的bean是否线程安全？<br>
- * 不。<br>
- * <br>
- * 4.如何让一个作用域为单例的bean在第一次获取bean时初始化？<br>
- * 在xml文件设置属性lazy-init="true" 。<br>
- * <br>
- * 5.缓存单例Bean的数据结构是什么？<br>
- * {@link ConcurrentHashMap}，Key是{@link String}，Value是{@link Object}。<br>
- * 位于{@link DefaultSingletonBeanRegistry#singletonObjects}。<br>
- * <br>
- */
-class BeansScopeQuestion
-{
-
-}
-
-/**
  * 1. Bean的生命周期？<br>
  * setBeanName->setBeanFactory->setApplicationContext->postProcessBeforeInitialization->afterPropertiesSet->
  * postProcessAfterInitialization-> destroy。 <br>
@@ -194,39 +129,6 @@ class BeansScopeQuestion
  * ：postProcessAfterInitialization <br>
  */
 class BeansLifeCycleQuestion
-{
-
-}
-
-/**
- * 1.IoC容器如何检测循环依赖？<br>
- * 用一个{@link HashSet}存储正在创建的bean的名字，创建一个bean之前检测{@link HashSet}。<br>
- * 代码：<br>
- * {@link AbstractBeanFactory#prototypesCurrentlyInCreation}：存储正在创建的bean。<br>
- * {@link AbstractBeanFactory#isPrototypeCurrentlyInCreation(String)}：判断指定name的原型bean是否正在创建中。<br>
- * {@link AbstractBeanFactory#beforePrototypeCreation(String)}：将bean的名字添加到{@link HashSet}。<br>
- * <br>
- * 2.IoC容器如何装配bean？<br>
- * <br>
- */
-class BeansCirculeQuestion
-{
-
-}
-
-/**
- * 1.IoC容器如何根据name获取Bean？<br>
- * 代码在：{@link AbstractBeanFactory#doGetBean()}。 <br>
- * a.如果name是别名（alias），去别名{@link Map}获取对应的name。<br>
- * 代码在 {@link AbstractBeanFactory#transformedBeanName(String)} 。<br>
- * b.根据name去单例{@link Map}获取对象，如果找到了，那就说明这个Bean就是单例，直接返回，否则转c。<br>
- * c.没找到，根据name去bean定义{@link Map}获取bean定义，然后判断bean的作用域，如果是单例，转d，否则转f。<br>
- * d.通过反射new一个bean，把bean缓存。<br>
- * 代码在 {@link SimpleInstantiationStrategy#instantiate(RootBeanDefinition, String, BeanFactory)} 。<br>
- * f.通过反射new一个bean。<br>
- * <br>
- */
-class BeansGetQuestion
 {
 
 }
@@ -258,7 +160,6 @@ class AopQuestion
  * {@link Method#invoke(Object, Object...)}：。<br>
  * 代码： <br>
  * {@link ReflectiveMethodInvocation#proceed()}：。<br>
- * <br>
  * {@link AspectJMethodBeforeAdvice#before()}：。<br>
  * {@link AspectJAfterAdvice#invoke(MethodInvocation)}：。<br>
  * {@link AspectJAfterThrowingAdvice#invoke(MethodInvocation)}：。<br>
@@ -266,9 +167,7 @@ class AopQuestion
  * <br>
  */
 class JdkAopQuestion
-{
-}
+{}
 
 class CglibAopQuestion
-{
-}
+{}

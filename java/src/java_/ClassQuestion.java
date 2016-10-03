@@ -61,21 +61,17 @@ class InterfaceQuestion
         public abstract void method1();
 
         public default void i()
-        {
-        }
+        {}
 
         public static void s()
-        {
-        }
+        {}
     }
 
     public interface IF2
-    {
-    }
+    {}
 
     public interface IF3 extends IF1, IF2
-    {
-    }
+    {}
 }
 
 /**
@@ -91,9 +87,7 @@ class InterfaceQuestion
 class StaticQuestion
 {
     static class Field
-    {
-
-    }
+    {}
 
     static class Block
     {
@@ -103,9 +97,7 @@ class StaticQuestion
         }
 
         static void test()
-        {
-
-        }
+        {}
     }
 
     static class Package
@@ -115,9 +107,7 @@ class StaticQuestion
             public static final int TRUE = 1;
 
             private Constants()
-            {
-
-            }
+            {}
         }
     }
 }
@@ -159,15 +149,11 @@ class FinalQuestion
         static class A
         {
             static final void method1()
-            {
-
-            }
+            {}
         }
 
         static class B extends A
-        {
-
-        }
+        {}
 
     }
 }
@@ -195,9 +181,7 @@ class FinalQuestion
 class OrderQuestion
 {
     static class Test1
-    {
-
-    }
+    {}
 
     static class Test2
     {

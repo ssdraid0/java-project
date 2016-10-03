@@ -1,10 +1,18 @@
 package java_;
 
 /**
+ * ⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽<br>
  * 1.{@link String}和{@link StringBuilder}的区别？<br>
- * a.{@link String}实际存储字符串的char数组是final不能改变的，{@link StringBuilder}不是。<br>
- * b.{@link String}线程安全。<br>
- * 
+ * ⑴.{@link String}实际存储字符串的char数组是final不能改变的，{@link StringBuilder}不是。<br>
+ * ⑵.{@link String}线程安全。<br>
+ * 2.{@link String#equals(Object)}是如何比较字符串？<br>
+ * ⑴.先比较引用，引用相同返回true。 </br>
+ * ⑵.再判断Object对象是否为String类型，不是返回false。 </br>
+ * ⑶.再判断长度是否相同，不相同返回false。 </br>
+ * ⑷.再从头开始比较每个字符。 </br>
+ * 3.{@link String#intern()}的作用是什么？<br>
+ * 如果常量池已经包含一个等于此 String 对象的字符串（由 equals(Object) 方法确定），<br>
+ * 则返回常量池中的字符串。否则，将此 String 对象添加到常量池中，并且返回此 String 对象的引用。<br>
  */
 public class StringQuestion
 {

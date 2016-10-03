@@ -4,16 +4,18 @@ import java.util.Arrays;
 
 /**
  * 1.输入一个int类型n，不使用递归，返回斐波那契数列的第n项。<br>
+ * 0，1，1，2，3，5<br>
  * {@link #fibonacci(int)}。<br>
  * 2.输入一个double类型x和一个int类型n，返回x的n次方。<br>
  * {@link #power(double, int)}。<br>
  * 3.输入一个int类型n，n代表台阶层数，可以一次上1步，2步或3步，返回上法的数量。<br>
  * {@link #step(int)}。<br>
  * 4.输入一个int类型n，输出所有1到n以内的完美数。<br>
- * {@link #perfectNumber(int)}。<br>
+ * 完美数： 一个数除了自身以外的约数的和等于它本身。<br>
+ * {@link #perfectNum(int)}。<br>
  * 5.输入一个int类型n，输出从1到最大的n位数。。<br>
  * {@link #printFromZeroTo(int)}。<br>
- * 6.输入两个int类型n，不使用+、 -、 *、 /，返回加法结果。<br>
+ * 6.输入两个int类型n，不使用+、0 -、 *、 /，返回加法结果。<br>
  * {@link #add(int, int)}。<br>
  * 7.输入一个int类型n，打印出所有和为n连续正数序列。<br>
  * 例如：输入15，由于1+2+3+4+5=4+5+6=7+8=15，所以输出3个连续序列1-5、4-6和7-8<br>
@@ -28,7 +30,7 @@ public class MathQuestion
     public static void main(String[] args)
     {
         System.out.print("perfectNumber：");
-        perfectNumber(1000);
+        perfectNum(1000);
         System.out.println();
         System.out.print("step：" + step(10));
         // add(5, 16);
@@ -85,7 +87,7 @@ public class MathQuestion
     public static int fibonacciRecursive(int n)
     {
         if (n == 0)
-            return 1;
+            return 0;
         if (n == 1 || n == 2)
             return 1;
         else
@@ -101,31 +103,22 @@ public class MathQuestion
         if (Math.abs(x - 0) < 0.0000001)
         {
             if (n < 0)
-                throw new Exception("0的负数次幂没有意义");
+                throw new Exception();
             else
                 return 0;
         }
         if (n < 0)
-        {
             result = 1.0 / powerWithExp(x, -n);
-        } else
-        {
+        else
             result = powerWithExp(x, n);
-        }
         return result;
     }
 
     private static double powerWithExp(double x, int n)
     {
-        if (n == 0)
-        {
-            return 1;
-        }
         double result = 1.0;
-        for (int i = 1; i <= n; i++)
-        {
+        for (int i = 0; i < n; i++)
             result = result * x;
-        }
         return result;
     }
 
@@ -165,25 +158,21 @@ public class MathQuestion
     }
 
     /**
-     * 完美数： 一个数除了自身以外的约数的和等于它本身。<br>
      * 输入一个int类型n，输出所有1到n以内的完美数。<br>
+     * 完美数： 一个数除了自身以外的约数的和等于它本身。<br>
      */
-    public static void perfectNumber(int n)
+    public static void perfectNum(int n)
     {
         for (int i = 1; i <= n; i++)
         {
-            int temp = 0;// 因子之和
-            for (int j = 1; j < i / 2 + 1; j++)
+            int factorSum = 0;
+            for (int j = 1; j < (i >> 1) + 1; j++)
             {
                 if (i % j == 0)
-                {
-                    temp += j;// 能被整除的除数则被加到temp中
-                }
+                    factorSum += j;// 能被整除的除数则被加到temp中
             }
-            if (temp == i)
-            {
+            if (factorSum == i)
                 System.out.print(i + ",");
-            }
         }
     }
 
@@ -193,26 +182,25 @@ public class MathQuestion
      * 输入一个n，返回这个按从小到大的顺序的第 n 个丑数。<br>
      * http://zhedahht.blog.163.com/blog/static/2541117420094245366965/<br>
      */
-    public static int uglyNumber(int n)
+    public static int uglyNum(int n)
     {
         if (n <= 0)
             return 0;
         int[] ugly = new int[n];
         ugly[0] = 1;
-        int nextUgly = 1, p2 = 0, p3 = 0, p5 = 0;
-        while (nextUgly < n)
+        int index = 1, p2 = 0, p3 = 0, p5 = 0;
+        while (index < n)
         {
             int min = Math.min(ugly[p2] * 2, Math.min(ugly[p3] * 3, ugly[p5] * 5));
-            ugly[nextUgly] = min;
-            while (ugly[p2] * 2 <= ugly[nextUgly])
+            while (ugly[p2] * 2 <= min)
                 p2++;
-            while (ugly[p3] * 3 <= ugly[nextUgly])
+            while (ugly[p3] * 3 <= min)
                 p3++;
-            while (ugly[p5] * 5 <= ugly[nextUgly])
+            while (ugly[p5] * 5 <= min)
                 p5++;
-            nextUgly++;
+            ugly[index++] = min;
         }
-        return ugly[nextUgly - 1];
+        return ugly[index - 1];
     }
 
     /**
@@ -262,7 +250,7 @@ public class MathQuestion
      */
     public static int add(int a, int b)
     {
-        int sum, carry;
+        int sum = 0, carry = 0;
         while (b != 0)
         {
             sum = a ^ b; // 不考虑进位的加法
@@ -274,38 +262,63 @@ public class MathQuestion
     }
 
     /**
-     * 输入两个int类型x和n，求x的n次方。<br>
-     */
-    public static int pow(int x, int n)
-    {
-        if (n == 0)
-        {
-            return 1;
-        }
-        while ((n & 1) == 0)
-        {
-            x *= x;
-            n >>= 1;
-        }
-        int result = x;
-        n >>= 1;
-        while (n != 0)
-        {
-            x *= x;
-            if ((n & 1) != 0)
-                result *= x;
-            n >>= 1;
-        }
-        return result;
-    }
-
-    /**
      * 输入一个int类型n，表示骰子的个数，所有骰子朝上一面的点数之和为s，<br>
      * 打印出s的所有可能的值出现的概率。<br>
      */
     public static void dice(int n)
     {
 
+    }
+
+    /**
+     * 输入一个int类型，输出反转的结果。<br>
+     * https://leetcode.com/problems/reverse-integer/<br>
+     * https://discuss.leetcode.com/topic/6104/my-accepted-15-lines-of-code-for-java/2<br>
+     */
+    public static void reverse(int i)
+    {
+        int result = 0;
+        while (i != 0)
+        {
+            int tail = i % 10;
+            int newResult = result * 10 + tail;
+            if ((newResult - tail) / 10 != result)
+            {
+                System.out.print(0);
+                return;
+            }
+            result = newResult;
+            i = i / 10;
+        }
+        System.out.print(result);
+    }
+
+    /**
+     * https://leetcode.com/problems/palindrome-number/<br>
+     * https://discuss.leetcode.com/topic/40845/9-ms-java-beats-99-5-java-solutions-easy-to-understand<br>
+     */
+    public static boolean isPalindrome(int i)
+    {
+        if (i < 0)
+            return false;
+        if (i < 10)
+            return true;
+        if (i % 10 == 0)
+            return false;
+        if (i < 100 && i % 11 == 0)
+            return true;
+        if (i < 1000 && ((i / 100) * 10 + i % 10) % 11 == 0)
+            return true;
+        int v = i % 10;
+        i = i / 10;
+        while (i - v > 0)
+        {
+            v = v * 10 + i % 10;
+            i /= 10;
+        }
+        if (v > i)
+            v /= 10;
+        return v == i ? true : false;
     }
 
     /**
@@ -322,20 +335,20 @@ public class MathQuestion
         while (small < middle)
         {
             if (sum == n)
-                printContinuousSequence(small, big);
+                printContinuousSeq(small, big);
             while (sum > n)
             {
                 sum -= small;
                 small++;
                 if (sum == n)
-                    printContinuousSequence(small, big);
+                    printContinuousSeq(small, big);
             }
             big++;
             sum += big;
         }
     }
 
-    private static void printContinuousSequence(int small, int big)
+    private static void printContinuousSeq(int small, int big)
     {
         for (int i = small; i <= big; ++i)
             System.out.print(i);
@@ -357,21 +370,21 @@ public class MathQuestion
     {
         int baseScale = 1;
         int passed = 0;
-        int answer = 0;
+        int times = 0;
         while (n > 0)
         {
             int current = n % 10;
             n = n / 10;
             if (k < current)
-                answer += (n + 1) * baseScale;
+                times += (n + 1) * baseScale;
             else if (k == current)
-                answer += n * baseScale + passed + 1;
+                times += n * baseScale + passed + 1;
             else
-                answer += n * baseScale;
+                times += n * baseScale;
             passed += current * baseScale;
             baseScale *= 10;
         }
-        return answer;
+        return times;
     }
 
     /**
@@ -422,13 +435,6 @@ public class MathQuestion
             base = 10 * base + (c[i++] - '0');
         }
         return base * sign;
-    }
-
-    @SuppressWarnings("unused")
-    private static void powTest()
-    {
-        Math.pow(2, 10);
-        System.out.println(pow(2, 10));
     }
 
     @SuppressWarnings("unused")

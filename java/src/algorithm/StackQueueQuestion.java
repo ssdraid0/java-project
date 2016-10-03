@@ -23,17 +23,17 @@ public class StackQueueQuestion
         private int[] value = new int[10];
         private int length = 0;
 
-        public void push(int x) throws Exception
+        public void push(int x)
         {
             if (length == value.length)
-                throw new Exception();
+                return;
             value[length++] = x;
         }
 
         public int pop() throws Exception
         {
             if (length == 0)
-                throw new Exception();
+               throw new Exception();
             int i = value[length - 1];
             length--;
             return i;

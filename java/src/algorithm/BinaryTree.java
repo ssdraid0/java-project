@@ -32,11 +32,11 @@ public class BinaryTree
         TreeNode node3 = new TreeNode();
         TreeNode node4 = new TreeNode();
         TreeNode node5 = new TreeNode();
-        node1.value = 1;
-        node2.value = 2;
-        node3.value = 3;
-        node4.value = 4;
-        node5.value = 5;
+        node1.key = 1;
+        node2.key = 2;
+        node3.key = 3;
+        node4.key = 4;
+        node5.key = 5;
         node1.left = node2;
         node1.right = node3;
         node2.left = node4;
@@ -48,7 +48,7 @@ public class BinaryTree
 
     public static class TreeNode
     {
-        int value;
+        int key;
         TreeNode left;
         TreeNode right;
 
@@ -58,13 +58,13 @@ public class BinaryTree
 
         public TreeNode(int value)
         {
-            this.value = value;
+            this.key = value;
         }
 
         @Override
         public String toString()
         {
-            return Integer.toString(value);
+            return Integer.toString(key);
         }
     }
 
@@ -72,7 +72,7 @@ public class BinaryTree
     {
         if (root != null)
         {
-            System.out.print(root.value);
+            System.out.print(root.key);
             preTraverse(root.left);
             preTraverse(root.right);
         }
@@ -86,7 +86,7 @@ public class BinaryTree
         if (root != null)
         {
             inTraverse(root.left);
-            System.out.print(root.value);
+            System.out.print(root.key);
             inTraverse(root.right);
         }
     }
@@ -97,7 +97,7 @@ public class BinaryTree
         {
             postTraverse(root.left);
             postTraverse(root.right);
-            System.out.print(root.value);
+            System.out.print(root.key);
         }
     }
 
@@ -150,7 +150,7 @@ public class BinaryTree
     {
         if (left == null || right == null)
             return left == right;
-        if (left.value != right.value)
+        if (left.key != right.key)
             return false;
         return isSymmetricHelp(left.left, right.right) && isSymmetricHelp(left.right, right.left);
     }
@@ -167,7 +167,7 @@ public class BinaryTree
         while (!queue.isEmpty())
         {
             TreeNode node = queue.poll();
-            System.out.print(node.value);
+            System.out.print(node.key);
             if (node.left != null)
             {
                 queue.add(node.left);
@@ -196,8 +196,8 @@ public class BinaryTree
             return 0;
         int left = Math.max(0, maxPathSum(root.left, maxValue)); // 考虑负数
         int right = Math.max(0, maxPathSum(root.right, maxValue)); // 考虑负数
-        maxValue = Math.max(maxValue, left + right + root.value); // 考虑左结点->父结点->右结点这种路径
-        return Math.max(left, right) + root.value; // 返回在一定包含node结点情况下的最大值
+        maxValue = Math.max(maxValue, left + right + root.key); // 考虑左结点->父结点->右结点这种路径
+        return Math.max(left, right) + root.key; // 返回在一定包含node结点情况下的最大值
     }
 
     /**
@@ -215,8 +215,8 @@ public class BinaryTree
 
     private static void findPath(TreeNode root, int sum, Stack<Integer> stack, int currentSum)
     {
-        currentSum += root.value;
-        stack.push(root.value);
+        currentSum += root.key;
+        stack.push(root.key);
         if (root.left == null && root.right == null)
         {
             if (currentSum == sum)
@@ -254,7 +254,7 @@ public class BinaryTree
         if (preStart > preEnd || inStart > inEnd)
             return null;
         TreeNode root = new TreeNode();
-        root.value = pre[preStart];
+        root.key = pre[preStart];
         for (int i = inStart; i <= inEnd; i++)
         {
             if (in[i] == pre[preStart])
@@ -296,7 +296,7 @@ public class BinaryTree
             return false;
         }
         boolean result = false;
-        if (root1.value == root2.value)
+        if (root1.key == root2.key)
         {
             result = isTree1HasTree2(root1, root2);
         }
@@ -313,7 +313,7 @@ public class BinaryTree
             return true;
         if (root1 == null)
             return false;
-        if (root1.value != root2.value)
+        if (root1.key != root2.key)
         {
             return false;
         }
@@ -383,13 +383,13 @@ public class BinaryTree
         node1.right = node4;
         node4.left = node5;
         node4.right = node6;
-        root1.value = 8;
-        node1.value = 8;
-        node2.value = 7;
-        node3.value = 9;
-        node4.value = 2;
-        node5.value = 4;
-        node6.value = 7;
+        root1.key = 8;
+        node1.key = 8;
+        node2.key = 7;
+        node3.key = 9;
+        node4.key = 2;
+        node5.key = 4;
+        node6.key = 7;
         printFromTopToBottom(root1);
     }
 }

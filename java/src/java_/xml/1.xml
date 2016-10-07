@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <highschool>
+        <student>
+            <name lang="cn">张三</name>
+            <age>16</age>
+        </student>
+        <student>
+            <name lang="cn">李四</name>
+            <age>17</age>
+        </student>
+        <student>
+            <name lang="cn">王五</name>
+            <age>18</age>
+        </student>
+    </highschool>
+    <college>
+        <student>
+            <name lang="cn">张三</name>
+            <name lang="en">ZhangSan</name>
+            <age>20</age>
+        </student>
+        <student>
+            <name lang="cn">李四</name>
+            <age>21</age>
+        </student>
+        <student>
+            <name lang="cn">王五</name>
+            <age>22</age>
+        </student>
+    </college>
+</rss>

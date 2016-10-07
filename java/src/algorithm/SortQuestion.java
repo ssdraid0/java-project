@@ -1,32 +1,36 @@
 package algorithm;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
- * 1.有哪些常见排序算法？最好，平均，最坏时间复杂度是多少？空间复杂度是多少？是否稳定？<br>
- * 选择排序：n^2，n^2，n^2。1。不稳定。<br>
- * 冒泡排序：n，n^2，n^2。1。稳定。<br>
- * 快速排序：nlogn，nlogn，n^2。不稳定。<br>
- * 堆排序：nlogn，nlogn，nlogn。不稳定。<br>
- * 归并排序：nlogn，nlogn，nlogn。稳定。<br>
- * Timsort：n，nlogn，nlogn。稳定。<br>
- * <br>
- * 2.实现冒泡排序，快速排序，堆排序，归并排序。<br>
- * 冒泡排序：{@link #bubbleSort(int[])}。<br>
- * 快速排序：{@link #quickSort(int[], int, int)}。<br>
- * 堆排序：{@link #heapSort(int[])}。<br>
- * 归并排序：{@link #mergeSort(int[], int, int)}。<br>
- * <br>
- * 3.输入一个int数组，把奇数放到左边。<br>
- * {@link #moveOddToLeft(int[])}。<br>
+ * 1.有哪些常见排序算法？最好，平均，最坏时间复杂度是多少？空间复杂度是多少？是否稳定？</br>
+ * 选择排序：n^2，n^2，n^2。1。不稳定。</br>
+ * 冒泡排序：n，n^2，n^2。1。稳定。</br>
+ * 快速排序：nlogn，nlogn，n^2。不稳定。</br>
+ * 堆排序：nlogn，nlogn，nlogn。不稳定。</br>
+ * 归并排序：nlogn，nlogn，nlogn。稳定。</br>
+ * Timsort：n，nlogn，nlogn。稳定。</br>
+ * </br>
+ * 2.实现冒泡排序，快速排序，堆排序，归并排序，折半插入排序。</br>
+ * 冒泡排序：{@link #bubbleSort(int[])}。</br>
+ * 快速排序：{@link #quickSort(int[], int, int)}。</br>
+ * 堆排序：{@link #heapSort(int[])}。</br>
+ * 归并排序：{@link #mergeSort(int[], int, int)}。</br>
+ * </br>
+ * 3.输入一个int数组，把奇数放到左边。</br>
+ * {@link #moveOddToLeft(int[])}。</br>
  */
 public class SortQuestion
 {
     public static void main(String[] args)
     {
-        int[] a = { 2, 5, 3, 8, 7, 4 };
+        int[] a = { 16, 7, 3, 20, 17, 8 };
         // SelectSortQuestion.sort(a);
         // BubbleSortQuestion.sort(a);
         // QuickSortQuestion.sort(a);
-        heapSort(a);
+        // insertSort(a);
+        binaryInsertSort(a);
         for (int i = 0; i < a.length; i++)
         {
             System.out.print(a[i]);
@@ -75,13 +79,11 @@ public class SortQuestion
                 // 从右向左找第一个小于x的数
                 while (left < right && a[right] >= x)
                     right--;
-                if (left < right)
-                    a[left++] = a[right];
+                if (left < right) a[left++] = a[right];
                 // 从左向右找第一个大于等于x的数
                 while (left < right && a[left] < x)
                     left++;
-                if (left < right)
-                    a[right--] = a[left];
+                if (left < right) a[right--] = a[left];
             }
             a[left] = x;
             quickSort(a, start, left - 1);
@@ -90,7 +92,7 @@ public class SortQuestion
     }
 
     /**
-     * https://en.wikipedia.org/wiki/Merge_sort<br>
+     * https://en.wikipedia.org/wiki/Merge_sort</br>
      */
     public static void mergeSort(int[] a, int start, int end)
     {
@@ -115,10 +117,8 @@ public class SortQuestion
         // 把较小的数先移到新数组中
         while (i <= mid && j <= end)
         {
-            if (a[i] <= a[j])
-                temp[k++] = a[i++];
-            else
-                temp[k++] = a[j++];
+            if (a[i] <= a[j]) temp[k++] = a[i++];
+            else temp[k++] = a[j++];
         }
         // 把左边剩余的数移入数组
         while (i <= mid)
@@ -132,20 +132,21 @@ public class SortQuestion
     }
 
     /**
-     * http://blog.csdn.net/xiaoxiaoxuewen/article/details/7570621/<br>
-     * https://en.wikipedia.org/wiki/Heapsort<br>
+     * http://blog.csdn.net/xiaoxiaoxuewen/article/details/7570621/</br>
+     * https://en.wikipedia.org/wiki/Heapsort</br>
      */
     public static void heapSort(int[] a)
     {
-        if (a == null || a.length <= 1)
-            return;
+        if (a == null || a.length <= 1) return;
+        // 获得初始堆
         for (int i = a.length >> 1; i >= 0; i--)
             maxHeap(a, a.length, i);
+        // 调整初始堆
         for (int i = a.length - 1; i >= 1; i--)
         {
-            int temp = a[i];
+            int t = a[i];
             a[i] = a[0];
-            a[0] = temp;
+            a[0] = t;
             maxHeap(a, i, 0);
         }
     }
@@ -155,27 +156,66 @@ public class SortQuestion
         int left = index * 2 + 1;
         int right = index * 2 + 2;
         int largest = index;
-        if (left < heapSize && a[left] > a[index])
-            largest = left;
-        if (right < heapSize && a[right] > a[largest])
-            largest = right;
+        if (left < heapSize && a[left] > a[index]) largest = left;
+        if (right < heapSize && a[right] > a[largest]) largest = right;
         if (index != largest)
         {
-            int temp = a[index];
+            int t = a[index];
             a[index] = a[largest];
-            a[largest] = temp;
+            a[largest] = t;
             maxHeap(a, heapSize, largest);
         }
     }
 
     /**
-     * 输入一个int数组，把奇数放到左边。<br>
-     * http://zhedahht.blog.163.com/blog/static/25411174200741295930898/<br>
+     * {@link Arrays#sort(int[])}</br>
+     * https://en.wikipedia.org/wiki/Insertion_sort</br>
+     */
+    public static void insertSort(int[] a)
+    {
+        for (int i = 0, j = i; i < a.length - 1; i++, j = i)
+        {
+            int ai = a[i + 1];
+            while (ai < a[j])
+            {
+                a[j + 1] = a[j];
+                if (j-- == 0) break;
+            }
+            a[j + 1] = ai;
+        }
+    }
+
+    /**
+     * {@link Arrays#sort(Object[], Comparator)}</br>
+     */
+    public static void binaryInsertSort(int[] a)
+    {
+        for (int i = 1; i < a.length; i++)
+        {
+            int t = a[i];
+            int low = 0;
+            int high = i - 1;
+            while (low <= high)
+            {
+                int mid = (low + high) / 2;
+                if (t < a[mid]) high = mid - 1;
+                else low = mid + 1;
+            }
+            for (int j = i; j >= low + 1; j--)
+            {
+                a[j] = a[j - 1];
+            }
+            a[low] = t;
+        }
+    }
+
+    /**
+     * 输入一个int数组，把奇数放到左边。</br>
+     * http://zhedahht.blog.163.com/blog/static/25411174200741295930898/</br>
      */
     public static void moveOddToLeft(int a[])
     {
-        if (a == null)
-            return;
+        if (a == null) return;
         int begin = 0;
         int end = a.length - 1;
         while (begin < end)
@@ -195,20 +235,19 @@ public class SortQuestion
             a[end] = temp;
         }
     }
-    
+
     /**
-     * 输入一个int数组和一个int类型k，找出int数组中最大的k个数，<br>
-     * 存储到另一个数组，最后返回这个数组。<br>
-     * http://zhedahht.blog.163.com/blog/static/2541117420072432136859/<br>
-     * http://www.cnblogs.com/big-sun/p/4085793.html<br>
+     * 输入一个int数组和一个int类型k，找出int数组中最大的k个数，</br>
+     * 存储到另一个数组，最后返回这个数组。</br>
+     * http://zhedahht.blog.163.com/blog/static/2541117420072432136859/</br>
+     * http://www.cnblogs.com/big-sun/p/4085793.html</br>
      */
     public static int[] topK(int[] a, int k)
     {
         int heap[] = createHeap(a, k);
         for (int i = k; i < a.length; i++)
         {
-            if (a[i] > heap[0])
-                insertHeap(heap, a[i]);
+            if (a[i] > heap[0]) insertHeap(heap, a[i]);
         }
         return heap;
     }
@@ -217,9 +256,7 @@ public class SortQuestion
     {
         int[] heap = new int[k];
         for (int i = 0; i < k; i++)
-        {
             heap[i] = a[i];
-        }
         for (int i = 1; i < k; i++)
         {
             int child = i;
@@ -243,12 +280,9 @@ public class SortQuestion
         {
             int left = 2 * parent + 1, right = 2 * parent + 2;
             int minIndex = parent;
-            if (left < heap.length && heap[parent] > heap[left])
-                minIndex = left;
-            if (right < heap.length && heap[minIndex] > heap[right])
-                minIndex = right;
-            if (minIndex == parent)
-                break;
+            if (left < heap.length && heap[parent] > heap[left]) minIndex = left;
+            if (right < heap.length && heap[minIndex] > heap[right]) minIndex = right;
+            if (minIndex == parent) break;
             else
             {
                 int temp = heap[parent];

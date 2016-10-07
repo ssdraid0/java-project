@@ -6,24 +6,24 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * ⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽<br>
  * 1.{@link Class#getConstructors()}和{@link Class#getDeclaredConstructors()}的区别？<br>
- * {@link Class#getConstructors()}：只获取public构造器。<br>
- * {@link Class#getDeclaredConstructors()}：：获取所有构造器。<br>
- * {@link #test1()}<br>
+ * {@link Class#getConstructors()}：只获取public构造器，包括继承的。<br>
+ * {@link Class#getDeclaredConstructors()}：：获取所有构造器，不包括继承的。<br>
+ * {@link #testGetConstructor()}<br>
  * <br>
  * 2.通过{@link Constructor}构造一个对象的过程？<br>
- * ⑴通过{@link Class#getConstructors()}获取类的所有构造器。<br>
- * ⑵通过{@link Constructor#getParameters()}找出需要的构造器。<br>
- * ⑶通过{@link Constructor#newInstance(Object...)}构造一个对象。<br>
- * {@link #test2()}<br>
+ * ⑴.通过{@link Class#getConstructors()}获取类的所有构造器。<br>
+ * ⑵.通过{@link Constructor#getParameters()}找出需要的构造器。<br>
+ * ⑶.通过{@link Constructor#newInstance(Object...)}构造一个对象。<br>
+ * {@link #testNewInstance()}<br>
  */
 public class ConstructorQ
 {
     public static void main(String[] args)
     {
-        test2();
+        testNewInstance();
     }
 
-    public static void test1()
+    public static void testGetConstructor()
     {
         // List<Integer> list1 = new ArrayList<>();
         // Constructor<?>[] constructor = list1.getClass().getConstructors();
@@ -33,7 +33,7 @@ public class ConstructorQ
         System.out.println(constructors2.length);
     }
 
-    public static void test2()
+    public static void testNewInstance()
     {
         Constructor<?>[] constructors1 = Class2.class.getConstructors();
         for (Constructor<?> c : constructors1)

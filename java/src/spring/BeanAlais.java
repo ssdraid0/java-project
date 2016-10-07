@@ -13,10 +13,10 @@ import spring.bean.alias.IBean;
 /**
  * ⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽<br>
  * 1.别名（alias）是如何从xml解析出来的？<br>
- * ⑴解析alias标签：{@link DefaultBeanDefinitionDocumentReader#processAliasRegistration()}。<br>
- * ⑵解析bean标签中的name：{@link DefaultBeanDefinitionDocumentReader#processBeanDefinition()}，<br>
+ * ⑴.解析alias标签：{@link DefaultBeanDefinitionDocumentReader#processAliasRegistration()}。<br>
+ * ⑵.解析bean标签中的name：{@link DefaultBeanDefinitionDocumentReader#processBeanDefinition()}，<br>
  * {@link BeanDefinitionReaderUtils#registerBeanDefinition()}。<br>
- * ⑶存储：{@link SimpleAliasRegistry#registerAlias(String, String)}。<br>
+ * ⑶.存储：{@link SimpleAliasRegistry#registerAlias(String, String)}。<br>
  * <br>
  * 2.存储别名（alias）的数据结构是什么？<br>
  * {@link ConcurrentHashMap}，Key是{@link String}，Value是{@link String}。<br>

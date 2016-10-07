@@ -8,7 +8,7 @@ public class AopTest
     {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring/aop/aop.xml");
         IHelloWorldService helloworldService = ctx.getBean("helloWorldService", IHelloWorldService.class);
-         //HelloWorldService2 helloworldService = (HelloWorldService2) ctx.getBean("helloWorldService2");
+        // HelloWorldService2 helloworldService = (HelloWorldService2) ctx.getBean("helloWorldService2");
 
         System.out.println("//////////////////////////////");
         helloworldService.sayHello();

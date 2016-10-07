@@ -9,7 +9,7 @@ public class HelloWorldAspect
     {
         System.out.println("before");
     }
-    
+
     // 环绕通知
     public void around(ProceedingJoinPoint pjp)
     {
@@ -18,10 +18,7 @@ public class HelloWorldAspect
         {
             pjp.proceed();
         } catch (Throwable e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        {}
         System.out.println("around");
     }
 
@@ -36,12 +33,11 @@ public class HelloWorldAspect
     {
         System.out.println("after returning:" + str);
     }
-    
+
     // 后置异常通知
     public void afterThrowing(Exception exception)
     {
         System.out.println("after throwing:" + exception.getMessage());
     }
-    
 
 }

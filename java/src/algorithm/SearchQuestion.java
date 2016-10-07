@@ -1,20 +1,20 @@
 package algorithm;
 
 /**
- * 1.输入一个int数组和int类型num，使用二分查找，返回num在数组中的位置。<br>
- * 有多个num的情形，返回最前/最后的一个。<br>
- * {@link #binarySearchFirst(int[], int)}，{@link #binarySearchLast(int[], int)}。<br>
- * <br>
- * 2.输入一个数组，这个数组是另一个递增排序的数组的一个旋转数组，通过二分法输出最小元素。<br>
- * 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，数组{3,4,5,1,2}的最小值为 1。<br>
- * {@link #binarySearchMin(int[], int, int)}。<br>
- * <br>
+ * 1.输入一个int数组和int类型num，使用二分查找，返回num在数组中的位置。</br>
+ * 有多个num的情形，返回最前/最后的一个。</br>
+ * {@link #binarySearchFirst(int[], int)}，{@link #binarySearchLast(int[], int)}。</br>
+ * </br>
+ * 2.输入一个数组，这个数组是另一个递增排序的数组的一个旋转数组，通过二分法输出最小元素。</br>
+ * 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，数组{3,4,5,1,2}的最小值为 1。</br>
+ * {@link #binarySearchMin(int[], int, int)}。</br>
+ * </br>
  */
 public class SearchQuestion
 {
     /**
-     * 输入一个int数组和int类型key，使用二分查找，返回key在数组中的位置。<br>
-     * 有多个key的情形，返回最前的一个。<br>
+     * 输入一个int数组和int类型key，使用二分查找，返回key在数组中的位置。</br>
+     * 有多个key的情形，返回最前的一个。</br>
      */
     public static int binarySearchFirst(int[] a, int k)
     {
@@ -34,8 +34,8 @@ public class SearchQuestion
     }
 
     /**
-     * 输入一个int数组和int类型key，使用二分查找，返回key在数组中的位置。<br>
-     * 有多个key的情形，返回最后的一个。<br>
+     * 输入一个int数组和int类型key，使用二分查找，返回key在数组中的位置。</br>
+     * 有多个key的情形，返回最后的一个。</br>
      */
     public static int binarySearchLast(int[] a, int k)
     {
@@ -55,10 +55,10 @@ public class SearchQuestion
     }
 
     /**
-     * 输入一个数组，这个数组是另一个递增排序的数组的一个旋转数组，通过二分法输出最小元素。<br>
-     * 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，数组{3,4,5,1,2}的最小值为 1。<br>
-     * {3,4,5,1,2}，{1,1,1,1,1}，，<br>
-     * https://leetcode.com/problems/search-in-rotated-sorted-array/<br>
+     * 输入一个数组，这个数组是另一个递增排序的数组的一个旋转数组，通过二分法输出最小元素。</br>
+     * 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，数组{3,4,5,1,2}的最小值为 1。</br>
+     * {3,4,5,1,2}，{1,1,1,1,1}，，</br>
+     * https://leetcode.com/problems/search-in-rotated-sorted-array/</br>
      */
     public static int binarySearchMin(int[] a, int start, int end)
     {

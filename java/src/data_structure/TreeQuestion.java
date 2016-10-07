@@ -1,9 +1,7 @@
 package data_structure;
 
 public class TreeQuestion
-{
-
-}
+{}
 
 /**
  * 1.什么是二叉树的深度？什么是度？什么叫叶子结点？ <br>
@@ -32,9 +30,7 @@ public class TreeQuestion
  * 最多有1007+1=1008个度为2的结点。 <br>
  */
 class BinaryTreeQuestion
-{
-
-}
+{}
 
 /**
  * 1.一个深度为10的满二叉树最少、最多有多少个结点？<br>
@@ -45,9 +41,7 @@ class BinaryTreeQuestion
  * 深度为n的满二叉树最少2^n-1，最多2^(n+1)-1个结点。<br>
  */
 class FullBinaryTree
-{
-
-}
+{}
 
 /**
  * 1.一个深度为10的完全二叉树最少、最多有多少个结点？<br>
@@ -58,16 +52,4 @@ class FullBinaryTree
  * 深度为n的完全二叉树最少2^(n)，最多2^(n+1)-1个结点。<br>
  */
 class CompleteBinaryTree
-{
-
-}
-
-class PerfectBinaryTree
-{
-
-}
-
-class BalancedBinaryTree
-{
-
-}
+{}

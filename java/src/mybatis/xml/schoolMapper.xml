@@ -10,8 +10,6 @@
     <select id="getStudentById" resultType="Student" resultMap="studentResultMap">
         select * from student where sid = #{0}
     </select>
-    
-
 
     <resultMap type="Student" id="studentResultMap">
         <id property="id" column="sid" />

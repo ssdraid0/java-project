@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="data_structure/concurrenthashmap/|data_structure/string/String.java|data_structure/treemap/|org/springframework/context/annotation/ConfigurationClassBeanDefinitionReader.java|org/springframework/context/support/GenericGroovyApplicationContext.java|org/springframework/" including="**/*.java" kind="src" output="target/classes" path="src">
+	<classpathentry excluding="data_structure/treemap/" including="**/*.java" kind="src" output="target/classes" path="src">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>

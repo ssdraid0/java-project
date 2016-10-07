@@ -14,7 +14,7 @@ import java.util.Arrays;
  * 完美数： 一个数除了自身以外的约数的和等于它本身。<br>
  * {@link #perfectNum(int)}。<br>
  * 5.输入一个int类型n，输出从1到最大的n位数。。<br>
- * {@link #printFromZeroTo(int)}。<br>
+ * {@link #printFromZeroTo(int[], int)}。<br>
  * 6.输入两个int类型n，不使用+、0 -、 *、 /，返回加法结果。<br>
  * {@link #add(int, int)}。<br>
  * 7.输入一个int类型n，打印出所有和为n连续正数序列。<br>
@@ -33,8 +33,6 @@ public class MathQuestion
         perfectNum(1000);
         System.out.println();
         System.out.print("step：" + step(10));
-        // add(5, 16);
-        // System.out.println(uglyNumber(50));
         System.out.println();
         System.out.println(countK(20, 1));
     }
@@ -86,12 +84,9 @@ public class MathQuestion
      */
     public static int fibonacciRecursive(int n)
     {
-        if (n == 0)
-            return 0;
-        if (n == 1 || n == 2)
-            return 1;
-        else
-            return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+        if (n == 0) return 0;
+        if (n == 1 || n == 2) return 1;
+        else return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
     }
 
     /**
@@ -102,15 +97,11 @@ public class MathQuestion
         double result = 0;
         if (Math.abs(x - 0) < 0.0000001)
         {
-            if (n < 0)
-                throw new Exception();
-            else
-                return 0;
+            if (n < 0) throw new Exception();
+            else return 0;
         }
-        if (n < 0)
-            result = 1.0 / powerWithExp(x, -n);
-        else
-            result = powerWithExp(x, n);
+        if (n < 0) result = 1.0 / powerWithExp(x, -n);
+        else result = powerWithExp(x, n);
         return result;
     }
 
@@ -137,12 +128,9 @@ public class MathQuestion
      */
     public static int step(int n)
     {
-        if (n == 1)
-            return 1;
-        if (n == 2)
-            return 2;
-        if (n == 3)
-            return 4;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+        if (n == 3) return 4;
         int a = 1;
         int b = 2;
         int c = 4;
@@ -158,7 +146,7 @@ public class MathQuestion
     }
 
     /**
-     * 输入一个int类型n，输出所有1到n以内的完美数。<br>
+     * 输入一个大于1的int类型n，输出所有1到n以内的完美数。<br>
      * 完美数： 一个数除了自身以外的约数的和等于它本身。<br>
      */
     public static void perfectNum(int n)
@@ -168,11 +156,9 @@ public class MathQuestion
             int factorSum = 0;
             for (int j = 1; j < (i >> 1) + 1; j++)
             {
-                if (i % j == 0)
-                    factorSum += j;// 能被整除的除数则被加到temp中
+                if (i % j == 0) factorSum += j;// 能被整除的除数则被加到temp中
             }
-            if (factorSum == i)
-                System.out.print(i + ",");
+            if (factorSum == i) System.out.print(i + ",");
         }
     }
 
@@ -184,37 +170,30 @@ public class MathQuestion
      */
     public static int uglyNum(int n)
     {
-        if (n <= 0)
-            return 0;
+        if (n <= 0) return 0;
         int[] ugly = new int[n];
         ugly[0] = 1;
-        int index = 1, p2 = 0, p3 = 0, p5 = 0;
-        while (index < n)
+        int p2 = 0, p3 = 0, p5 = 0;
+        for (int i = 1; i < ugly.length; i++)
         {
             int min = Math.min(ugly[p2] * 2, Math.min(ugly[p3] * 3, ugly[p5] * 5));
+            ugly[i] = min;
             while (ugly[p2] * 2 <= min)
                 p2++;
             while (ugly[p3] * 3 <= min)
                 p3++;
             while (ugly[p5] * 5 <= min)
                 p5++;
-            ugly[index++] = min;
         }
-        return ugly[index - 1];
+        return ugly[n - 1];
     }
 
     /**
      * 输入一个int类型，输出从1到最大的n位数。<br>
      * http://zhedahht.blog.163.com/blog/static/2541117420094279426862/<br>
+     * 调用：printFromZeroTo(new int[n], 0);
      */
-    public static void printFromZeroTo(int n)
-    {
-        if (n <= 0)
-            return;
-        printFromZeroTo(new int[n], 0);
-    }
-
-    private static void printFromZeroTo(int[] a, int n)
+    public static void printFromZeroTo(int[] a, int n)
     {
         for (int i = 0; i < 10; i++)
         {
@@ -230,12 +209,10 @@ public class MathQuestion
                     if (a[j] != 0)
                     {
                         System.out.print(a[j]);
-                        if (!firstIsNotZero)
-                            firstIsNotZero = true;
+                        firstIsNotZero = true;
                     } else
                     {
-                        if (firstIsNotZero)
-                            System.out.print(a[j]);
+                        if (firstIsNotZero) System.out.print(a[j]);
                     }
                 }
                 System.out.print(",");
@@ -259,6 +236,81 @@ public class MathQuestion
             b = carry;
         }
         return a;
+    }
+
+    /**
+     * 输入一个int类型n，输出所有和为n连续正数序列。<br>
+     * 例如：输入15，由于1+2+3+4+5=4+5+6=7+8=15，所以输出3个连续序列12345、456和78<br>
+     * http://zhedahht.blog.163.com/blog/static/25411174200732711051101/<br>
+     */
+    public static void sum(int n)
+    {
+        if (n < 3) return;
+        int small = 1, big = 2, sum = small + big;
+        int mid = (1 + n) / 2;
+        while (small < mid)
+        {
+            if (sum == n) printContinuousSeq(small, big);
+            while (sum > n)
+            {
+                sum -= small;
+                small++;
+                if (sum == n) printContinuousSeq(small, big);
+            }
+            big++;
+            sum += big;
+        }
+    }
+
+    /**
+     * 输入两个int类型n和k，输出0到n（包括边界）的所有数字中k出现的次数。<br>
+     * 例如30143：<br>
+     * 由于3>1，则个位上出现1的次数为(3014+1)*1。<br>
+     * 由于4>1，则十位上出现1的次数为(301+1)*10。<br>
+     * 由于1=1，则百位上出现1次数为(30+0)*100+(43+1)。<br>
+     * 由于0<1，则千位上出现1次数为(3+0)*1000。<br>
+     * http://zhedahht.blog.163.com/blog/static/25411174200732494452636/<br>
+     * https://leetcode.com/problems/number-of-digit-one/<br>
+     * https://discuss.leetcode.com/topic/27404/my-simple-and-understandable-java-solution/3<br>
+     */
+    public static int countK(int n, int k)
+    {
+        int baseScale = 1;
+        int passed = 0;
+        int times = 0;
+        while (n > 0)
+        {
+            int current = n % 10;
+            n = n / 10;
+            if (k < current) times += (n + 1) * baseScale;
+            else if (k == current) times += n * baseScale + passed + 1;
+            else times += n * baseScale;
+            passed += current * baseScale;
+            baseScale *= 10;
+        }
+        return times;
+    }
+
+    /**
+     * 输入一个int数组，判断是不是能排序成一个顺子，<br>
+     * A为1，J为11，Q为12，K为13，<br>
+     * 大小王可以看成任意数字，并且可能有多个大小王。<br>
+     * http://zhedahht.blog.163.com/blog/static/25411174200951262930831/<br>
+     */
+    public static boolean cards(int[] a)
+    {
+        if (a == null || a.length <= 1) return false;
+        Arrays.sort(a);
+        int zero = 0; // 统计大小王个数
+        for (int i = 0; i < a.length && a[i] == 0; i++)
+            zero++;
+        int gap = 0;
+        for (int i = zero; i < a.length - 1; i++)
+        {
+            if (a[i] == a[i + 1]) return false;
+            gap += a[i + 1] - a[i] - 1;
+        }
+        return (zero >= gap) ? true : false;
     }
 
     /**
@@ -299,16 +351,11 @@ public class MathQuestion
      */
     public static boolean isPalindrome(int i)
     {
-        if (i < 0)
-            return false;
-        if (i < 10)
-            return true;
-        if (i % 10 == 0)
-            return false;
-        if (i < 100 && i % 11 == 0)
-            return true;
-        if (i < 1000 && ((i / 100) * 10 + i % 10) % 11 == 0)
-            return true;
+        if (i < 0) return false;
+        if (i < 10) return true;
+        if (i % 10 == 0) return false;
+        if (i < 100 && i % 11 == 0) return true;
+        if (i < 1000 && ((i / 100) * 10 + i % 10) % 11 == 0) return true;
         int v = i % 10;
         i = i / 10;
         while (i - v > 0)
@@ -316,36 +363,8 @@ public class MathQuestion
             v = v * 10 + i % 10;
             i /= 10;
         }
-        if (v > i)
-            v /= 10;
+        if (v > i) v /= 10;
         return v == i ? true : false;
-    }
-
-    /**
-     * 输入一个int类型n，输出所有和为n连续正数序列。<br>
-     * 例如：输入15，由于1+2+3+4+5=4+5+6=7+8=15，所以输出3个连续序列12345、456和78<br>
-     * http://zhedahht.blog.163.com/blog/static/25411174200732711051101/<br>
-     */
-    public static void sum(int n)
-    {
-        if (n < 3)
-            return;
-        int small = 1, big = 2, sum = small + big;
-        int middle = (1 + n) / 2;
-        while (small < middle)
-        {
-            if (sum == n)
-                printContinuousSeq(small, big);
-            while (sum > n)
-            {
-                sum -= small;
-                small++;
-                if (sum == n)
-                    printContinuousSeq(small, big);
-            }
-            big++;
-            sum += big;
-        }
     }
 
     private static void printContinuousSeq(int small, int big)
@@ -356,62 +375,6 @@ public class MathQuestion
     }
 
     /**
-     * 输入两个int类型n和k，输出0到n（包括边界）的所有数字中k出现的次数。<br>
-     * 例如30143：<br>
-     * 由于3>1，则个位上出现1的次数为(3014+1)*1。<br>
-     * 由于4>1，则十位上出现1的次数为(301+1)*10。<br>
-     * 由于1=1，则百位上出现1次数为(30+0)*100+(43+1)。<br>
-     * 由于0<1，则千位上出现1次数为(3+0)*1000。<br>
-     * http://zhedahht.blog.163.com/blog/static/25411174200732494452636/<br>
-     * https://leetcode.com/problems/number-of-digit-one/<br>
-     * https://discuss.leetcode.com/topic/27404/my-simple-and-understandable-java-solution/3<br>
-     */
-    public static int countK(int n, int k)
-    {
-        int baseScale = 1;
-        int passed = 0;
-        int times = 0;
-        while (n > 0)
-        {
-            int current = n % 10;
-            n = n / 10;
-            if (k < current)
-                times += (n + 1) * baseScale;
-            else if (k == current)
-                times += n * baseScale + passed + 1;
-            else
-                times += n * baseScale;
-            passed += current * baseScale;
-            baseScale *= 10;
-        }
-        return times;
-    }
-
-    /**
-     * 输入一个int数组，判断是不是能排序成一个顺子，<br>
-     * A为1，J为11，Q为12，K为13，<br>
-     * 大小王可以看成任意数字，并且可能有多个大小王。<br>
-     * http://zhedahht.blog.163.com/blog/static/25411174200951262930831/<br>
-     */
-    public static boolean cards(int[] a)
-    {
-        if (a == null || a.length <= 1)
-            return false;
-        Arrays.sort(a);
-        int zero = 0; // 统计大小王个数
-        for (int i = 0; i < a.length && a[i] == 0; i++)
-            zero++;
-        int gap = 0;
-        for (int i = zero; i < a.length - 1; i++)
-        {
-            if (a[i] == a[i + 1])
-                return false;
-            gap += a[i + 1] - a[i] - 1;
-        }
-        return (zero >= gap) ? true : false;
-    }
-
-    /**
      * 输入一个char数组，转换成int类型，返回转换结果。<br>
      * <br>
      * https://leetcode.com/problems/string-to-integer-atoi/<br>
@@ -419,13 +382,11 @@ public class MathQuestion
      */
     public static int parseInt(char[] c)
     {
-        if (c == null || c.length == 0)
-            throw new NumberFormatException();
+        if (c == null || c.length == 0) throw new NumberFormatException();
         int sign = 1, base = 0, i = 0;
         while (c[i] == ' ')
             i++;
-        if (c[i] == '+' || c[i] == '-')
-            sign = (c[i++] == '+') ? 1 : -1;
+        if (c[i] == '+' || c[i] == '-') sign = (c[i++] == '+') ? 1 : -1;
         while (i < c.length && c[i] >= '0' && c[i] <= '9')
         {
             if (base > Integer.MAX_VALUE / 10 || (base == Integer.MAX_VALUE / 10 && c[i] - '0' > 7))

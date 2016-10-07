@@ -3,30 +3,30 @@ package algorithm;
 import algorithm.BinaryTree.TreeNode;
 
 /**
- * 1.什么是二叉搜索树/二叉查找树/二叉排序树？查找，插入，删除操作的时间复杂度是多少？ <br>
- * 二叉搜索树：左子树上的结点都小于根结点，右子树上的结点都大于根结点。<br>
- * 平均：O(logn)，最坏：O(n)。<br>
- * https://en.wikipedia.org/wiki/Binary_search_tree<br>
- * <br>
- * 2.输入一颗二叉搜索树的头结点，找出值最小/最大的结点，返回这个结点。<br>
- * {@link #min(TreeNode)}，{@link #max(TreeNode)}。<br>
- * <br>
- * 3.输入一颗二叉搜索树的头结点和一个int类型value，如果存在值为value的结点，返回true。<br>
- * {@link #contains(TreeNode, int)}。<br>
- * <br>
- * 4.输入一颗二叉搜索树的头结点和一个int类型value，把value插入这颗二叉搜索树中。<br>
- * 返回根结点。<br>
- * {@link #add(TreeNode, int)}。<br>
- * <br>
- * 5.输入一颗二叉搜索树的头结点和一个int类型value，把值为value的结点删除，<br>
- * 返回根结点。<br>
- * {@link #remove(TreeNode, int)}。<br>
- * <br>
- * 6.输入一个二叉树的根结点，转换成一个排序的双向链表，返回头结点。<br>
- * {@link #asDoublyLinkedList(TreeNode)}。<br>
- * <br>
- * 7.输入一个int数组，如果是某颗二叉搜索树的后序遍历，返回true。<br>
- * {@link #isPostTraverse(int[], int, int)}。<br>
+ * 1.什么是二叉搜索树/二叉查找树/二叉排序树？查找，插入，删除操作的时间复杂度是多少？ </br>
+ * 二叉搜索树：左子树上的结点都小于根结点，右子树上的结点都大于根结点。</br>
+ * 平均：O(logn)，最坏：O(n)。</br>
+ * https://en.wikipedia.org/wiki/Binary_search_tree</br>
+ * </br>
+ * 2.输入一颗二叉搜索树的头结点，找出值最小/最大的结点，返回这个结点。</br>
+ * {@link #min(TreeNode)}，{@link #max(TreeNode)}。</br>
+ * </br>
+ * 3.输入一颗二叉搜索树的头结点和一个int类型value，如果存在值为value的结点，返回true。</br>
+ * {@link #contains(TreeNode, int)}。</br>
+ * </br>
+ * 4.输入一颗二叉搜索树的头结点和一个int类型value，把value插入这颗二叉搜索树中。</br>
+ * 返回根结点。</br>
+ * {@link #put(TreeNode, int)}。</br>
+ * </br>
+ * 5.输入一颗二叉搜索树的头结点和一个int类型value，把值为value的结点删除，</br>
+ * 返回根结点。</br>
+ * {@link #remove(TreeNode, int)}。</br>
+ * </br>
+ * 6.输入一个二叉树的根结点，转换成一个排序的双向链表，返回头结点。</br>
+ * {@link #asDoublyLinkedList(TreeNode)}。</br>
+ * </br>
+ * 7.输入一个int数组，如果是某颗二叉搜索树的后序遍历，返回true。</br>
+ * {@link #isPostTraverse(int[], int, int)}。</br>
  */
 public class BinarySearchTree
 {
@@ -36,8 +36,9 @@ public class BinarySearchTree
     }
 
     /**
-     * 输入一颗二叉搜索树的头结点，找出值最小的结点，返回这个结点。<br>
-     * http://blog.sina.com.cn/s/blog_937cbcc10101dmqm.html<br>
+     * 输入一颗二叉搜索树的头结点，找出值最小的结点，返回这个结点。</br>
+     * 和红黑树，AVL树的实现相同。</br>
+     * http://blog.sina.com.cn/s/blog_937cbcc10101dmqm.html</br>
      */
     public static TreeNode min(TreeNode root)
     {
@@ -49,7 +50,7 @@ public class BinarySearchTree
     }
 
     /**
-     * 输入一颗二叉搜索树的头结点，找出值最大的结点，返回这个结点。<br>
+     * 输入一颗二叉搜索树的头结点，找出值最大的结点，返回这个结点。</br>
      */
     public static TreeNode max(TreeNode root)
     {
@@ -61,22 +62,22 @@ public class BinarySearchTree
     }
 
     /**
-     * 输入一颗二叉搜索树的头结点和一个int类型value，如果二叉搜索树存在值为value的结点，返回true。<br>
-     * http://blog.sina.com.cn/s/blog_937cbcc10101dmqm.html<br>
+     * 输入一颗二叉搜索树的头结点和一个int类型value，如果二叉搜索树存在值为value的结点，返回true。</br>
+     * http://blog.sina.com.cn/s/blog_937cbcc10101dmqm.html</br>
      */
     public static boolean contains(TreeNode root, int value)
     {
         if (root == null)
             return false;
-        if (root.value > value)
+        if (root.key > value)
             return contains(root.left, value);
-        if (root.value < value)
+        if (root.key < value)
             return contains(root.right, value);
         return true;
     }
 
     /**
-     * 输入一个int数组，构造一颗二叉搜索树，返回根结点。<br>
+     * 输入一个int数组，构造一颗二叉搜索树，返回根结点。</br>
      */
     public static TreeNode create(int[] a)
     {
@@ -84,48 +85,48 @@ public class BinarySearchTree
             return null;
         TreeNode root = null;
         for (int i = 0; i < a.length; i++)
-            root = add(root, a[i]);
+            root = put(root, a[i]);
         return root;
     }
 
     /**
-     * 输入一颗二叉搜索树的头结点和一个int类型value，把value插入这颗二叉搜索树中，<br>
-     * 返回根结点。<br>
-     * http://blog.sina.com.cn/s/blog_937cbcc10101dmqm.html<br>
+     * 输入一颗二叉搜索树的头结点和一个int类型value，把value插入这颗二叉搜索树中，</br>
+     * 返回根结点。</br>
+     * http://blog.sina.com.cn/s/blog_937cbcc10101dmqm.html</br>
      */
-    public static TreeNode add(TreeNode root, int value)
+    public static TreeNode put(TreeNode root, int key)
     {
         if (root == null)
-            return new TreeNode(value);
-        if (root.value > value)
+            return new TreeNode(key);
+        if (root.key > key)
         {
-            root.left = add(root.left, value);
-        } else if (root.value < value)
+            root.left = put(root.left, key);
+        } else if (root.key < key)
         {
-            root.right = add(root.right, value);
+            root.right = put(root.right, key);
         }
         return root;
     }
 
     /**
-     * 输入一颗二叉搜索树的头结点和一个int类型value，把二叉搜索树中值为value的结点删除，<br>
-     * 返回根结点。<br>
-     * http://blog.sina.com.cn/s/blog_937cbcc10101dmqm.html<br>
+     * 输入一颗二叉搜索树的头结点和一个int类型value，把二叉搜索树中值为value的结点删除，</br>
+     * 返回根结点。</br>
+     * http://blog.sina.com.cn/s/blog_937cbcc10101dmqm.html</br>
      */
-    public static TreeNode remove(TreeNode root, int value)
+    public static TreeNode remove(TreeNode root, int key)
     {
         if (root == null)
             return null;
-        if (root.value > value)
+        if (root.key > key)
         {
-            root.left = remove(root.left, value);
-        } else if (root.value < value)
+            root.left = remove(root.left, key);
+        } else if (root.key < key)
         {
-            root.right = remove(root.right, value);
+            root.right = remove(root.right, key);
         } else if (root.left != null && root.right != null)
         {
-            root.value = min(root.right).value;
-            root.right = remove(root.right, root.value);
+            root.key = min(root.right).key;
+            root.right = remove(root.right, root.key);
         } else
         {
             root = (root.left != null) ? root.left : root.right;
@@ -134,8 +135,8 @@ public class BinarySearchTree
     }
 
     /**
-     * 输入一个二叉树的根结点，如果是二叉搜索树，返回true。<br>
-     * https://leetcode.com/problems/validate-binary-search-tree/<br>
+     * 输入一个二叉树的根结点，如果是二叉搜索树，返回true。</br>
+     * https://leetcode.com/problems/validate-binary-search-tree/</br>
      */
     public static boolean isBST(TreeNode root)
     {
@@ -150,14 +151,14 @@ public class BinarySearchTree
     {
         if (root == null)
             return true;
-        if (root.value <= min || root.value >= max)
+        if (root.key <= min || root.key >= max)
             return false;
-        return isBST(root.left, min, root.value) && isBST(root.right, root.value, max);
+        return isBST(root.left, min, root.key) && isBST(root.right, root.key, max);
     }
 
     /**
-     * 输入一个int数组，如果是某颗二叉搜索树的后序遍历，返回true。<br>
-     * http://zhedahht.blog.163.com/blog/static/25411174200725319627/<br>
+     * 输入一个int数组，如果是某颗二叉搜索树的后序遍历，返回true。</br>
+     * http://zhedahht.blog.163.com/blog/static/25411174200725319627/</br>
      */
     public static boolean isPostTraverse(int[] post, int start, int end)
     {
@@ -189,8 +190,8 @@ public class BinarySearchTree
     }
 
     /**
-     * 输入一个二叉树的根结点，转换成一个排序的双向链表，返回头结点。<br>
-     * http://zhedahht.blog.163.com/blog/static/254111742007127104759245/<br>
+     * 输入一个二叉树的根结点，转换成一个排序的双向链表，返回头结点。</br>
+     * http://zhedahht.blog.163.com/blog/static/254111742007127104759245/</br>
      */
     public static TreeNode asDoublyLinkedList(TreeNode root)
     {

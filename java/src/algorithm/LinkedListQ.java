@@ -3,19 +3,21 @@ package algorithm;
 import java.util.Stack;
 
 /**
- * 1.给定单链表的头结点和一个结点，删除该结点，返回删除后的单链表的头结点。 <br>
- * {@link #remove(Node, Node)}。<br>
- * 2.给定单链表的头结点和一个结点的值，删除该结点，返回删除后的单链表的头结点。 <br>
- * {@link #remove(Node, int)}。<br>
- * 3.输入一个单链表的头结点，从尾到头反过来打印出单链表每个结点的值，用递归实现。<br>
- * {@link #printReverse(Node)}。<br>
- * 4.输入一个单链表的头结点，反转单链表，返回反转后的头结点。<br>
- * {@link #reverse(Node)}。<br>
- * 5.输入两个有序的单链表的头结点，合并后仍然是有序的，返回合并后的头结点。<br>
- * {@link #mergeSort(Node, Node)}。<br>
- * 6.输入一个复杂单链表的头结点，其结点除了有一个next指向下一个结点外，<br>
- * 还有一个other指向链表中的任一结点或者null。 复制这个单链表并返回头结点。<br>
- * {@link #clone(ComplexNode)}。<br>
+ * 1.给定单链表的头结点和一个结点，删除该结点，返回删除后的单链表的头结点。 </br>
+ * {@link #remove(Node, Node)}。</br>
+ * 2.给定单链表的头结点和一个结点的值，删除该结点，返回删除后的单链表的头结点。 </br>
+ * {@link #remove(Node, int)}。</br>
+ * 3.输入一个单链表的头结点，从尾到头反过来打印出单链表每个结点的值，用递归实现。</br>
+ * {@link #printReverse(Node)}。</br>
+ * 4.输入一个单链表的头结点，反转单链表，返回反转后的头结点。</br>
+ * {@link #reverse(Node)}。</br>
+ * 5.输入两个有序的单链表的头结点，合并后仍然是有序的，返回合并后的头结点。</br>
+ * {@link #mergeSort(Node, Node)}。</br>
+ * 6.输入一个单链表的头结点，判断是否是环形。</br>
+ * {@link #hasCycle(Node)}。</br>
+ * 7.输入一个复杂单链表的头结点，其结点除了有一个next指向下一个结点外，</br>
+ * 还有一个other指向链表中的任一结点或者null。 复制这个单链表并返回头结点。</br>
+ * {@link #clone(ComplexNode)}。</br>
  */
 public class LinkedListQ
 {
@@ -25,13 +27,12 @@ public class LinkedListQ
     }
 
     /**
-     * 输入一个单链表的头结点和一个值，把这个值添加到末尾。<br>
+     * 输入一个单链表的头结点和一个值，把这个值添加到末尾。</br>
      */
     public static Node add(Node head, int value)
     {
         Node node = new Node(value);
-        if (head == null)
-            return node;
+        if (head == null) return node;
         Node point = head;
         while (point.next != null)
         {
@@ -42,16 +43,13 @@ public class LinkedListQ
     }
 
     /**
-     * 输入一单链表的头结点和一个结点的值，删除该结点，返回删除后的单链表的头结点。<br>
+     * 输入一单链表的头结点和一个结点的值，删除该结点，返回删除后的单链表的头结点。</br>
      */
     public static Node remove(Node head, int value)
     {
-        if (head == null)
-            return null;
-        if (head.value == value)
-            return head.next;
-        if (head.next == null)
-            return head;
+        if (head == null) return null;
+        if (head.value == value) return head.next;
+        if (head.next == null) return head;
         Node point = head;
         while (point.next.value != value)
         {
@@ -62,13 +60,12 @@ public class LinkedListQ
     }
 
     /**
-     * 输入一单链表的头结点和一个下标index，获取单链表第index个结点，返回这个结点。<br>
-     * 第0个结点是头结点。<br>
+     * 输入一单链表的头结点和一个下标index，获取单链表第index个结点，返回这个结点。</br>
+     * 第0个结点是头结点。</br>
      */
     public static Node get(Node head, int index)
     {
-        if (head == null || index < 0)
-            return null;
+        if (head == null || index < 0) return null;
         for (int i = 0; i < index; i++)
             head = head.next;
         return head;
@@ -79,12 +76,9 @@ public class LinkedListQ
      */
     public static Node remove(Node head, Node del)
     {
-        if (head == null)
-            return null;
-        if (head == del)
-            return head.next;
-        if (head.next == null)
-            return head;
+        if (head == null) return null;
+        if (head == del) return head.next;
+        if (head.next == null) return head;
         Node point = head;
         while (point.next != del)
         {
@@ -95,12 +89,11 @@ public class LinkedListQ
     }
 
     /**
-     * 输入一个单链表的头结点，反转单链表，返回反转后的头结点。<br>
+     * 输入一个单链表的头结点，反转单链表，返回反转后的头结点。</br>
      */
     public static Node reverse(Node head)
     {
-        if (head == null || head.next == null)
-            return head;
+        if (head == null || head.next == null) return head;
         Node prev = null;
         Node next = null;
         while (head != null)
@@ -114,18 +107,17 @@ public class LinkedListQ
     }
 
     /**
-     * 输入一个单链表的头结点，从尾到头反过来打印出单链表每个结点的值，用递归实现。<br>
+     * 输入一个单链表的头结点，从尾到头反过来打印出单链表每个结点的值，用递归实现。</br>
      */
     public static void printReverse(Node head)
     {
-        if (head == null)
-            return;
+        if (head == null) return;
         printReverse(head.next);
         System.out.print(head.value);
     }
 
     /**
-     * 输入两个有序的单链表的头结点，合并后仍然是有序的，返回合并后的头结点。<br>
+     * 输入两个有序的单链表的头结点，合并后仍然是有序的，返回合并后的头结点。</br>
      */
     public static Node mergeSort(Node head1, Node head2)
     {
@@ -151,9 +143,27 @@ public class LinkedListQ
     }
 
     /**
-     * 输入两个单链表的头结点，存储的都是非负整数，新建一个链表，存储相加的结果，返回头结点。<br>
-     * 例如：两个单链表是2 -> 4 -> 3，5 -> 6 -> 4，相加的结果是7 -> 0 -> 8。<br>
-     * https://leetcode.com/problems/add-two-numbers/<br>
+     * 输入一个单链表的头结点，判断是否是环形。</br>
+     * https://leetcode.com/problems/linked-list-cycle/</br>
+     */
+    public static boolean hasCycle(Node head)
+    {
+        if (head == null || head.next == null) return false;
+        Node slow = head;
+        Node fast = head.next;
+        while (fast != null && fast != slow && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if (fast == slow) return true;
+        else return false;
+    }
+
+    /**
+     * 输入两个单链表的头结点，存储的都是非负整数，新建一个链表，存储相加的结果，返回头结点。</br>
+     * 例如：两个单链表是2 -> 4 -> 3，5 -> 6 -> 4，相加的结果是7 -> 0 -> 8。</br>
+     * https://leetcode.com/problems/add-two-numbers/</br>
      */
     public static Node addTwoNums(Node head1, Node head2)
     {
@@ -175,7 +185,7 @@ public class LinkedListQ
     }
 
     /**
-     * 输入两个单链表的头结点，返回它们的第一个相同结点（说明之后的每个结点也相同）。<br>
+     * 输入两个单链表的头结点，返回它们的第一个相同结点（说明之后的每个结点也相同）。</br>
      */
     public static Node findFirstCommon(Node head1, Node head2)
     {
@@ -205,15 +215,14 @@ public class LinkedListQ
     }
 
     /**
-     * 输入一个复杂单链表的头结点。<br>
-     * 其结点除了有一个next指向下一个结点外，还有一个other指向链表中的任一结点或者null。<br>
-     * 复制这个复杂单链表并返回头结点。<br>
-     * http://zhedahht.blog.163.com/blog/static/254111742010819104710337/<br>
+     * 输入一个复杂单链表的头结点。</br>
+     * 其结点除了有一个next指向下一个结点外，还有一个other指向链表中的任一结点或者null。</br>
+     * 复制这个复杂单链表并返回头结点。</br>
+     * http://zhedahht.blog.163.com/blog/static/254111742010819104710337/</br>
      */
     public static ComplexNode clone(ComplexNode head)
     {
-        if (head == null)
-            return null;
+        if (head == null) return null;
         cloneNodes(head);
         connectOtherNodes(head);
         return reconnectNodes(head);
@@ -264,12 +273,11 @@ public class LinkedListQ
     }
 
     /**
-     * 输入一个单链表的头结点，从尾到头反过来打印出单链表每个结点的值，用栈实现。<br>
+     * 输入一个单链表的头结点，从尾到头反过来打印出单链表每个结点的值，用栈实现。</br>
      */
     public static void printReverseUseStack(Node head)
     {
-        if (head == null)
-            return;
+        if (head == null) return;
         Stack<Integer> stack = new Stack<>();
         while (head != null)
         {
@@ -324,8 +332,7 @@ public class LinkedListQ
         public Node next;
 
         public Node()
-        {
-        }
+        {}
 
         public Node(int value)
         {

@@ -1,0 +1,70 @@
+package nio;
+
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.util.Date;
+
+/**
+ * 1.{@link FileLock}的作用是什么？<br/>
+ * 多线程写文件。<br/>
+ */
+public class FileLockQ {
+	public static void main(String[] args) {
+		test1();
+	}
+
+	private static void test1() {
+		FileChannel channel = null;
+		FileLock lock = null;
+		RandomAccessFile raf = null;
+		try {
+
+			raf = new RandomAccessFile("logfile.txt", "rw");
+			raf.seek(raf.length());// raf在文件末尾追加内容的处理
+			channel = raf.getChannel();
+
+			// 获得锁方法一lock，阻塞的方法，当文件锁不可用时，当前进程会被挂起
+			// lock = channel.lock(0L, Long.MAX_VALUE, true);//共享锁，有写操作会报异常
+			lock = channel.lock();// 独占锁
+
+			// 获得锁方法二trylock，非阻塞的方法，当文件锁不可用时，tryLock()会得到null值
+			// do {
+			// lock = channel.tryLock();
+			// } while(null == lock);
+
+			// 互斥操作
+			ByteBuffer sendBuffer = ByteBuffer.wrap((new Date() + " 写入\n")
+					.getBytes());
+			channel.write(sendBuffer);
+			Thread.sleep(5000);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (lock != null) {
+				try {
+					lock.release();
+					lock = null;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (channel != null) {
+				try {
+					channel.close();
+					channel = null;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			try {
+				raf.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
